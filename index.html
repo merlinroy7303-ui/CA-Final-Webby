@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merlin's CA Final Rank Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09090f;--surface:#12121e;--surface2:#1a1a2e;--border:#2a2a40;
+  --gold:#f0c040;--gold2:#f5d98a;--gold-dim:rgba(240,192,64,0.10);--gold-border:rgba(240,192,64,0.25);
+  --text:#e8e8f0;--muted:#6b6b88;
+  --green:#4ade80;--green-dim:rgba(74,222,128,0.10);
+  --blue:#60a5fa;--blue-dim:rgba(96,165,250,0.10);
+  --purple:#c084fc;--purple-dim:rgba(192,132,252,0.10);
+  --orange:#fb923c;--orange-dim:rgba(251,146,60,0.10);
+  --red:#f87171;--red-dim:rgba(248,113,113,0.10);
+  --teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(240,192,64,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(240,192,64,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.bg-glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(240,192,64,0.07) 0%,transparent 65%);pointer-events:none;z-index:0;}
+
+/* HEADER */
+header{position:relative;z-index:1;padding:60px 24px 44px;text-align:center;}
+.rank-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(240,192,64,0.1);border:1px solid var(--gold-border);border-radius:30px;padding:7px 20px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4rem);font-weight:900;line-height:1.05;margin-bottom:14px;}
+.gold-text{background:linear-gradient(135deg,var(--gold),var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-sub{font-size:15px;color:var(--muted);max-width:520px;margin:0 auto 36px;line-height:1.7;}
+
+/* TRACKER */
+.tracker{max-width:760px;margin:0 auto 44px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px 32px;position:relative;overflow:hidden;z-index:1;}
+.tracker::before{content:'🏆';position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:5rem;opacity:0.05;}
+.t-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:18px;}
+.t-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;}
+@media(max-width:520px){.t-grid{grid-template-columns:repeat(2,1fr);}}
+.t-stat{text-align:center;}
+.t-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;display:block;line-height:1;}
+.t-label{font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:0.5px;}
+.t-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px;}
+.t-bar{height:6px;background:var(--surface2);border-radius:10px;overflow:hidden;}
+.t-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:10px;width:2%;transition:width 1s ease;}
+
+/* SEARCH */
+.srch-wrap{max-width:500px;margin:0 auto 44px;position:relative;z-index:1;}
+.srch-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 50px 15px 20px;font-size:14px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
+.srch-wrap input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(240,192,64,0.08);}
+.srch-wrap input::placeholder{color:var(--muted);}
+.srch-ico{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;}
+
+/* SECTION LABEL */
+.slabel{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:700;padding:0 24px;margin-bottom:18px;display:flex;align-items:center;gap:14px;position:relative;z-index:1;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* CARD GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:0 20px;max-width:1200px;margin:0 auto 48px;position:relative;z-index:1;}
+
+/* SUBJECT CARD */
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+.sc:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.5);}
+.sc-bar{position:absolute;top:0;left:0;right:0;height:3px;border-radius:18px 18px 0 0;}
+.sc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+.sc-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.sc-badge{font-size:10px;padding:4px 12px;border-radius:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.sc-grp{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+.sc-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:9px;}
+.sc-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:18px;}
+.sc-foot{display:flex;align-items:center;justify-content:space-between;}
+.sc-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.sc-tag{font-size:10px;padding:3px 8px;border-radius:8px;font-weight:600;background:var(--surface2);color:var(--muted);border:1px solid var(--border);}
+.sc-arr{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.2s;flex-shrink:0;}
+
+/* COLOUR VARIANTS */
+.cg .sc-icon{background:var(--gold-dim);}
+.cg .sc-bar{background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.cg .sc-badge{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.cg .sc-arr{background:var(--gold-dim);color:var(--gold);}
+.cg:hover{border-color:rgba(240,192,64,0.4);}
+.cg:hover .sc-arr{background:var(--gold);color:var(--bg);}
+
+.cb .sc-icon{background:var(--blue-dim);}
+.cb .sc-bar{background:linear-gradient(90deg,var(--blue),#93c5fd);}
+.cb .sc-badge{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(96,165,250,0.3);}
+.cb .sc-arr{background:var(--blue-dim);color:var(--blue);}
+.cb:hover{border-color:rgba(96,165,250,0.4);}
+.cb:hover .sc-arr{background:var(--blue);color:var(--bg);}
+
+.cgr .sc-icon{background:var(--green-dim);}
+.cgr .sc-bar{background:linear-gradient(90deg,var(--green),#86efac);}
+.cgr .sc-badge{background:var(--green-dim);color:var(--green);border:1px solid rgba(74,222,128,0.3);}
+.cgr .sc-arr{background:var(--green-dim);color:var(--green);}
+.cgr:hover{border-color:rgba(74,222,128,0.4);}
+.cgr:hover .sc-arr{background:var(--green);color:var(--bg);}
+
+.co .sc-icon{background:var(--orange-dim);}
+.co .sc-bar{background:linear-gradient(90deg,var(--orange),#fdba74);}
+.co .sc-badge{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(251,146,60,0.3);}
+.co .sc-arr{background:var(--orange-dim);color:var(--orange);}
+.co:hover{border-color:rgba(251,146,60,0.4);}
+.co:hover .sc-arr{background:var(--orange);color:var(--bg);}
+
+.cr .sc-icon{background:var(--red-dim);}
+.cr .sc-bar{background:linear-gradient(90deg,var(--red),#fca5a5);}
+.cr .sc-badge{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,0.3);}
+.cr .sc-arr{background:var(--red-dim);color:var(--red);}
+.cr:hover{border-color:rgba(248,113,113,0.4);}
+.cr:hover .sc-arr{background:var(--red);color:var(--bg);}
+
+.cp .sc-icon{background:var(--purple-dim);}
+.cp .sc-bar{background:linear-gradient(90deg,var(--purple),#e9d5ff);}
+.cp .sc-badge{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(192,132,252,0.3);}
+.cp .sc-arr{background:var(--purple-dim);color:var(--purple);}
+.cp:hover{border-color:rgba(192,132,252,0.4);}
+.cp:hover .sc-arr{background:var(--purple);color:var(--bg);}
+
+.ct .sc-icon{background:var(--teal-dim);}
+.ct .sc-bar{background:linear-gradient(90deg,var(--teal),#99f6e4);}
+.ct .sc-badge{background:var(--teal-dim);color:var(--teal);border:1px solid rgba(45,212,191,0.3);}
+.ct .sc-arr{background:var(--teal-dim);color:var(--teal);}
+.ct:hover{border-color:rgba(45,212,191,0.4);}
+.ct:hover .sc-arr{background:var(--teal);color:var(--bg);}
+
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity 0.2s;backdrop-filter:blur(6px);}
+.modal-ov.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:22px;max-width:560px;width:100%;max-height:90vh;display:flex;flex-direction:column;transform:translateY(24px);transition:transform 0.25s;overflow:hidden;}
+.modal-ov.open .modal{transform:translateY(0);}
+.m-head{padding:26px 26px 18px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0;}
+.m-eye{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:5px;}
+.m-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;padding-right:44px;line-height:1.3;}
+.m-close{position:absolute;top:22px;right:22px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;width:36px;height:36px;color:var(--muted);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.m-close:hover{background:var(--red-dim);color:var(--red);}
+.m-legend{padding:10px 26px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;gap:16px;flex-wrap:wrap;flex-shrink:0;}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
+.leg-dot{width:7px;height:7px;border-radius:50%;}
+.m-body{padding:18px 26px 24px;overflow-y:auto;flex:1;}
+.ch{display:flex;align-items:center;gap:12px;border:1px solid var(--border);border-radius:12px;padding:13px 15px;margin-bottom:9px;transition:all 0.2s;text-decoration:none;color:var(--text);background:var(--surface2);}
+a.ch:hover{border-color:var(--gold-border);background:var(--gold-dim);}
+.ch.coming{opacity:0.5;cursor:default;}
+.ch-n{font-size:11px;color:var(--muted);width:24px;flex-shrink:0;font-weight:700;}
+.ch-info{flex:1;}
+.ch-name{font-size:13px;font-weight:600;margin-bottom:4px;}
+.ch-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.ch-t{font-size:10px;color:var(--muted);}
+.ch-st{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700;white-space:nowrap;flex-shrink:0;}
+.st-r{background:var(--green-dim);color:var(--green);border:1px solid rgba(74,222,128,0.25);}
+.st-s{background:var(--surface);color:var(--muted);border:1px solid var(--border);}
+.m-hint{margin-top:16px;padding:14px;background:var(--gold-dim);border:1px dashed var(--gold-border);border-radius:12px;font-size:12px;color:var(--gold);line-height:1.7;text-align:center;}
+
+/* WHAT'S INSIDE SECTION */
+.inside-wrap{max-width:760px;margin:0 auto 52px;padding:0 20px;position:relative;z-index:1;}
+.inside-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:30px;}
+.inside-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:22px;display:flex;align-items:center;gap:10px;}
+.inside-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:520px){.inside-grid{grid-template-columns:1fr;}}
+.i-item{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.i-ico{font-size:22px;margin-bottom:10px;}
+.i-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.i-d{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* QR SECTION */
+.qr-wrap{max-width:720px;margin:0 auto 52px;padding:0 20px;position:relative;z-index:1;}
+.qr-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
+.qr-img{width:116px;height:116px;background:white;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:6px;}
+.qr-img img{width:100%;height:100%;}
+.qr-c{flex:1;min-width:220px;}
+.qr-c h3{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:8px;}
+.qr-c p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.qr-steps{display:flex;flex-direction:column;gap:8px;}
+.qst{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);}
+.qsd{width:22px;height:22px;border-radius:50%;background:var(--gold-dim);color:var(--gold);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--gold-border);}
+.url-row{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-top:14px;}
+.url-t{font-family:monospace;font-size:12px;color:var(--gold);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.copy-btn{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);border-radius:8px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.copy-btn:hover{background:var(--gold);color:var(--bg);}
+
+footer{text-align:center;padding:36px 20px;border-top:1px solid var(--border);position:relative;z-index:1;font-size:12px;color:var(--muted);line-height:1.8;}
+footer strong{color:var(--gold);}
+.hidden{display:none!important;}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- MODAL -->
+<div class="modal-ov" id="modal" onclick="closeOv(event)">
+  <div class="modal">
+    <div class="m-head">
+      <div class="m-eye" id="m-eye">Subject</div>
+      <div class="m-title" id="m-title">–</div>
+      <button class="m-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="m-legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Ready to study</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--gold)"></div>Has real-world case</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--muted)"></div>Coming soon</div>
+    </div>
+    <div class="m-body">
+      <div id="m-chs"></div>
+      <div class="m-hint">⚡ Every chapter includes: Real-world news hooks · Flowcharts · Mnemonics · MCQs from past papers · Rapid revision card · Rank-worthy answer writing tips<br><br>New chapters are added as we build them together, one by one. 🚀</div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="rank-badge">🏆 Rank Aspirant Mode · CA Final New Scheme 2024</div>
+  <h1>Merlin's<br><span class="gold-text">CA Final Hub</span></h1>
+  <p class="header-sub">Every chapter built for a rank — real-world context, flowcharts, mnemonics, past exam questions & rapid revision. Not just to pass. To top.</p>
+</header>
+
+<!-- TRACKER -->
+<div style="position:relative;z-index:1;max-width:760px;margin:0 auto 40px;padding:0 20px;">
+  <div class="tracker">
+    <div class="t-title">📊 Your Progress Dashboard</div>
+    <div class="t-grid">
+      <div class="t-stat"><span class="t-num" style="color:var(--gold)">1</span><div class="t-label">Chapters Done</div></div>
+      <div class="t-stat"><span class="t-num" style="color:var(--blue)">6</span><div class="t-label">Core Papers</div></div>
+      <div class="t-stat"><span class="t-num" style="color:var(--purple)">4</span><div class="t-label">SPOM Sets</div></div>
+      <div class="t-stat"><span class="t-num" style="color:var(--green)">∞</span><div class="t-label">Potential</div></div>
+    </div>
+    <div class="t-bar-label"><span>Overall Completion</span><span style="color:var(--gold)">2%</span></div>
+    <div class="t-bar"><div class="t-fill" id="pfill"></div></div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="srch-wrap">
+  <input type="text" placeholder="Search subjects or topics..." oninput="filterCards(this.value)"/>
+  <span class="srch-ico">🔍</span>
+</div>
+
+<!-- GROUP 1 -->
+<div class="slabel">📘 Group I &nbsp;·&nbsp; Papers 1 – 3</div>
+<div class="grid">
+  <div class="sc cg" onclick="openModal('fr')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">📊</div><div class="sc-badge">Paper 1</div></div>
+    <div class="sc-grp">Group I · High Weightage</div>
+    <div class="sc-name">Financial Reporting</div>
+    <div class="sc-desc">Ind AS, Conceptual Framework, Revenue Recognition, Financial Instruments, Business Combinations & Consolidation.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">🌍 Real Cases</span><span class="sc-tag">📐 Flowcharts</span></div><div class="sc-arr">→</div></div>
+  </div>
+  <div class="sc cb" onclick="openModal('afm')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">💹</div><div class="sc-badge">Paper 2</div></div>
+    <div class="sc-grp">Group I · Numericals + Theory</div>
+    <div class="sc-name">Advanced Financial Management</div>
+    <div class="sc-desc">Risk Management, Derivatives, Portfolio, Forex, M&A, International FM, Securitisation & Financial Policy.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">📰 News Hooks</span><span class="sc-tag">🔢 Numericals</span></div><div class="sc-arr">→</div></div>
+  </div>
+  <div class="sc cgr" onclick="openModal('aape')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">🔍</div><div class="sc-badge">Paper 3</div></div>
+    <div class="sc-grp">Group I · SAs + Ethics</div>
+    <div class="sc-name">Advanced Auditing & Professional Ethics</div>
+    <div class="sc-desc">Standards on Auditing, Risk-Based Audit, Forensic Accounting, Internal Audit, Due Diligence & Ethics.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">⚖️ Ethics Cases</span><span class="sc-tag">📋 SAs</span></div><div class="sc-arr">→</div></div>
+  </div>
+</div>
+
+<!-- GROUP 2 -->
+<div class="slabel">📗 Group II &nbsp;·&nbsp; Papers 4 – 6</div>
+<div class="grid">
+  <div class="sc co" onclick="openModal('dt')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">🏛️</div><div class="sc-badge">Paper 4</div></div>
+    <div class="sc-grp">Group II · Amendments Critical</div>
+    <div class="sc-name">Direct Tax Laws & International Taxation</div>
+    <div class="sc-desc">Income Tax, Transfer Pricing, DTAA, GAAR, POEM, Black Money Act & International Tax Planning.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">📜 Budget Updates</span><span class="sc-tag">🌐 Intl Tax</span></div><div class="sc-arr">→</div></div>
+  </div>
+  <div class="sc cr" onclick="openModal('idt')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">🧾</div><div class="sc-badge">Paper 5</div></div>
+    <div class="sc-grp">Group II · GST + Customs</div>
+    <div class="sc-name">Indirect Tax Laws</div>
+    <div class="sc-desc">GST (CGST, IGST, UTGST, Cess), Customs Law & Foreign Trade Policy — with latest notifications & circulars.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">🔔 Circulars</span><span class="sc-tag">🚢 Customs</span></div><div class="sc-arr">→</div></div>
+  </div>
+  <div class="sc cp" onclick="openModal('ibs')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">♟️</div><div class="sc-badge">Paper 6</div></div>
+    <div class="sc-grp">Group II · Case Studies</div>
+    <div class="sc-name">Integrated Business Solutions</div>
+    <div class="sc-desc">Multidisciplinary case studies integrating FR, AFM, Audit, Tax + Strategic Management. The all-in-one paper.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">🔗 Cross-subject</span><span class="sc-tag">📁 Cases</span></div><div class="sc-arr">→</div></div>
+  </div>
+</div>
+
+<!-- SPOM -->
+<div class="slabel">🎓 SPOM &nbsp;·&nbsp; Self-Paced Online Modules</div>
+<div class="grid">
+  <div class="sc cg" onclick="openModal('spomA')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">⚖️</div><div class="sc-badge">Set A</div></div>
+    <div class="sc-grp">SPOM · Mandatory · Min 40 hrs</div>
+    <div class="sc-name">Corporate & Economic Laws</div>
+    <div class="sc-desc">Companies Act 2013, SEBI, IBC, FEMA, Competition Act & Economic Laws — all tested in the SPOM portal.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">🏢 Corporate</span><span class="sc-tag">💼 SEBI</span></div><div class="sc-arr">→</div></div>
+  </div>
+  <div class="sc ct" onclick="openModal('spomB')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">📈</div><div class="sc-badge">Set B</div></div>
+    <div class="sc-grp">SPOM · Mandatory · Min 40 hrs</div>
+    <div class="sc-name">Strategic Cost & Performance Management</div>
+    <div class="sc-desc">Strategic Costing, Cost Optimisation, Balanced Scorecard, Performance Evaluation & Budgetary Control.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">📊 Costing</span><span class="sc-tag">🎯 Strategy</span></div><div class="sc-arr">→</div></div>
+  </div>
+  <div class="sc cb" onclick="openModal('spomC')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">🌐</div><div class="sc-badge">Set C · Elective</div></div>
+    <div class="sc-grp">SPOM · Financial Services & Capital Markets</div>
+    <div class="sc-name">Financial Services & Capital Markets</div>
+    <div class="sc-desc">Your chosen elective — Credit Rating, Capital Markets, SEBI, Mutual Funds & more. Chapter 13 already done! ✅</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">✅ Ch.13 Ready</span><span class="sc-tag">📰 News</span></div><div class="sc-arr">→</div></div>
+  </div>
+  <div class="sc cp" onclick="openModal('spomD')">
+    <div class="sc-bar"></div>
+    <div class="sc-head"><div class="sc-icon">🧠</div><div class="sc-badge">Set D · Multidisciplinary</div></div>
+    <div class="sc-grp">SPOM · Choose 1 of 4 options</div>
+    <div class="sc-name">Set D — Multidisciplinary Module</div>
+    <div class="sc-desc">Psychology & Philosophy / Entrepreneurship / Indian Constitution / Digital Ecosystem & Controls.</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">🌱 Broad Skills</span><span class="sc-tag">🔮 Future Ready</span></div><div class="sc-arr">→</div></div>
+  </div>
+</div>
+
+<!-- WHAT'S INSIDE EVERY CHAPTER -->
+<div class="slabel">⚡ What's Inside Every Chapter</div>
+<div class="inside-wrap">
+  <div class="inside-box">
+    <div class="inside-title">🏆 Built for a Rank — Not Just a Pass</div>
+    <div class="inside-grid">
+      <div class="i-item"><div class="i-ico">📰</div><div class="i-t">Real-World News Hook</div><div class="i-d">Every chapter opens with a real incident — Adani-Hindenburg for Credit Rating, Byju's collapse for Revenue Recognition, Yes Bank for Financial Instruments. Examiners love applied knowledge.</div></div>
+      <div class="i-item"><div class="i-ico">📐</div><div class="i-t">Visual Flowcharts & Diagrams</div><div class="i-d">Complex Ind AS standards broken into decision trees. Which standard applies when? Visualised so you never blank out in the exam hall.</div></div>
+      <div class="i-item"><div class="i-ico">🧠</div><div class="i-t">Mnemonics & Memory Tricks</div><div class="i-d">Custom acronyms and memory hooks for every major standard. Like CAMELS for credit rating — built for your brain, not a textbook.</div></div>
+      <div class="i-item"><div class="i-ico">📝</div><div class="i-t">MCQs + Past Exam Questions</div><div class="i-d">Interactive MCQs from ICAI RTPs, MTPs and past papers. Instant feedback and score tracking. Know exactly where you stand.</div></div>
+      <div class="i-item"><div class="i-ico">⚡</div><div class="i-t">Rapid Revision Card</div><div class="i-d">One tight page with everything that matters. Read the night before. The kind of thing rankers write in margins — but better.</div></div>
+      <div class="i-item"><div class="i-ico">✍️</div><div class="i-t">Rank-Worthy Answer Writing</div><div class="i-d">How to structure answers for maximum presentation marks. What ICAI examiners actually reward. The 10% edge that separates a pass from a rank.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- QR SECTION -->
+<div class="slabel">📱 Share Your Study Hub</div>
+<div class="qr-wrap">
+  <div class="qr-box">
+    <div class="qr-img">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://merlinroy7303-ui.github.io/CA-Final-Webby&bgcolor=ffffff&color=09090f&margin=4" alt="QR Code">
+    </div>
+    <div class="qr-c">
+      <h3>📲 Share with Anyone — Free</h3>
+      <p>Once live on GitHub Pages, anyone can scan this QR to open your full study hub on their phone.</p>
+      <div class="qr-steps">
+        <div class="qst"><div class="qsd">1</div>Make repo Public in Settings → Danger Zone</div>
+        <div class="qst"><div class="qsd">2</div>Go to Settings → Pages → Select main branch → Save</div>
+        <div class="qst"><div class="qsd">3</div>Wait 2 minutes — site goes live automatically</div>
+        <div class="qst"><div class="qsd">4</div>Share the link or this QR with your study group!</div>
+      </div>
+      <div class="url-row">
+        <span class="url-t">https://merlinroy7303-ui.github.io/CA-Final-Webby</span>
+        <button class="copy-btn" id="copy-btn" onclick="copyURL()">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Built for <strong>Merlin</strong> 👑 · CA Final New Scheme 2024 · Aiming for a Rank<br>
+  <span style="opacity:0.4;">Keep going. Every chapter is one step closer to that rank. 🌟</span>
+</footer>
+
+<script>
+const data = {
+  fr:{eye:"Paper 1 · Group I",name:"Financial Reporting",chs:[
+    {n:1,name:"Conceptual Framework & Ind AS Overview",tags:["🌍 Byju's case","📐 Flowchart"],file:null},
+    {n:2,name:"Presentation of Financial Statements (Ind AS 1, 34, 7)",tags:["📋 Format","⚡ Rapid Rev"],file:null},
+    {n:3,name:"Revenue from Contracts with Customers (Ind AS 115)",tags:["🌍 Infosys revenue","🧠 5-Step Model"],file:null},
+    {n:4,name:"Financial Instruments (Ind AS 32, 109, 107)",tags:["🌍 Yes Bank crisis","📐 ECL Model"],file:null},
+    {n:5,name:"Leases (Ind AS 116)",tags:["🌍 SpiceJet lease","📐 Decision tree"],file:null},
+    {n:6,name:"Business Combinations (Ind AS 103)",tags:["🌍 Tata-Air India","🧠 Mnemonics"],file:null},
+    {n:7,name:"Consolidated Financial Statements (Ind AS 110)",tags:["📐 Control flowchart","📝 MCQs"],file:null},
+    {n:8,name:"Associates & Joint Arrangements (Ind AS 28, 111)",tags:["📊 Equity method","📝 Past Qs"],file:null},
+    {n:9,name:"Income Taxes (Ind AS 12)",tags:["🧠 DTA/DTL trick","📝 MCQs"],file:null},
+    {n:10,name:"Share-Based Payments (Ind AS 102)",tags:["🌍 ESOP cases","📐 Diagram"],file:null},
+    {n:11,name:"Foreign Exchange (Ind AS 21)",tags:["🌍 Rupee depreciation","🔢 Numericals"],file:null},
+    {n:12,name:"Government Grants & Borrowing Costs (Ind AS 20, 23)",tags:["🌍 PLI schemes","✍️ Answer tips"],file:null},
+  ]},
+  afm:{eye:"Paper 2 · Group I",name:"Advanced Financial Management",chs:[
+    {n:1,name:"Financial Policy & Corporate Strategy",tags:["🌍 Reliance strategy","📐 Flowchart"],file:null},
+    {n:2,name:"Risk Management",tags:["🌍 Silicon Valley Bank","🧠 Mnemonics"],file:null},
+    {n:3,name:"Security Analysis",tags:["🌍 NSE/BSE data","📝 MCQs"],file:null},
+    {n:4,name:"Portfolio Management",tags:["📐 Efficient Frontier","🔢 Numericals"],file:null},
+    {n:5,name:"Securitisation",tags:["🌍 US Subprime link","📋 Structure"],file:null},
+    {n:6,name:"Derivatives — Futures, Options, Swaps",tags:["🌍 Hedging examples","🔢 Pricing"],file:null},
+    {n:7,name:"Forex Exposure & Risk Management",tags:["🌍 Rupee-Dollar","📝 MCQs"],file:null},
+    {n:8,name:"International Financial Management",tags:["🌍 FDI/FPI flows","📐 Diagram"],file:null},
+    {n:9,name:"Mergers, Acquisitions & Corporate Restructuring",tags:["🌍 Tata-Mistry case","🧠 Valuation"],file:null},
+  ]},
+  aape:{eye:"Paper 3 · Group I",name:"Advanced Auditing & Professional Ethics",chs:[
+    {n:1,name:"Quality Control (SQC 1, SA 220)",tags:["📋 Standards","📝 MCQs"],file:null},
+    {n:2,name:"Audit Planning, Strategy & Risk (SA 300, 315, 330)",tags:["🌍 Big 4 cases","📐 Risk model"],file:null},
+    {n:3,name:"Audit in Automated Environments & IT Audit",tags:["🌍 Cyber frauds","🧠 IT controls"],file:null},
+    {n:4,name:"Fraud & Forensic Accounting (SA 240)",tags:["🌍 Satyam scam","📐 Red flags"],file:null},
+    {n:5,name:"Company Audit & CARO",tags:["📋 Reporting req.","📝 Past Qs"],file:null},
+    {n:6,name:"Audit Committee & Corporate Governance",tags:["🌍 SEBI LODR","✍️ Answer tips"],file:null},
+    {n:7,name:"Internal Audit",tags:["📋 Standards","📐 Diagram"],file:null},
+    {n:8,name:"Due Diligence & Investigation",tags:["🌍 Startup DD cases","📋 Checklist"],file:null},
+    {n:9,name:"Professional Ethics & Code of Conduct",tags:["⚖️ ICAI Ethics","📝 MCQs"],file:null},
+  ]},
+  dt:{eye:"Paper 4 · Group II",name:"Direct Tax Laws & International Taxation",chs:[
+    {n:1,name:"Residence & Scope of Total Income",tags:["🌍 NRI tax cases","📐 Flowchart"],file:null},
+    {n:2,name:"Salary, House Property & PGBP Income",tags:["📝 Numericals","🧠 Mnemonics"],file:null},
+    {n:3,name:"Capital Gains & Other Sources",tags:["🌍 Startup ESOP tax","📝 MCQs"],file:null},
+    {n:4,name:"Deductions & Assessment Procedures",tags:["📋 Section list","⚡ Rapid Rev"],file:null},
+    {n:5,name:"Tax Planning & Management",tags:["🌍 Corporate restructuring","✍️ Answer tips"],file:null},
+    {n:6,name:"International Taxation & DTAA",tags:["🌍 Google tax India","📐 Treaty model"],file:null},
+    {n:7,name:"Transfer Pricing",tags:["🌍 Apple-Ireland","📐 Methods diagram"],file:null},
+    {n:8,name:"GAAR, POEM & Anti-Avoidance Provisions",tags:["🌍 Vodafone case","🧠 Tests"],file:null},
+    {n:9,name:"Black Money Act & Equalisation Levy",tags:["🌍 Digital tax","📝 MCQs"],file:null},
+  ]},
+  idt:{eye:"Paper 5 · Group II",name:"Indirect Tax Laws",chs:[
+    {n:1,name:"GST Overview & Constitutional Framework",tags:["🌍 GST rollout 2017","📐 Structure"],file:null},
+    {n:2,name:"Supply, Charge & Exemptions",tags:["📋 Schedules","📝 MCQs"],file:null},
+    {n:3,name:"Time, Value & Place of Supply",tags:["📐 Decision tree","🔢 Numericals"],file:null},
+    {n:4,name:"Input Tax Credit",tags:["🌍 ITC frauds","📐 Flowchart"],file:null},
+    {n:5,name:"Registration, Returns & Payments",tags:["📋 Due dates","⚡ Rapid Rev"],file:null},
+    {n:6,name:"Refunds, Demand & Recovery",tags:["📝 Past Qs","✍️ Answer tips"],file:null},
+    {n:7,name:"Appeals, Offences & Penalties",tags:["📋 Forum chart","📝 MCQs"],file:null},
+    {n:8,name:"Customs Law — Basics, Valuation & Duty",tags:["🌍 Import duty news","📐 Valuation methods"],file:null},
+    {n:9,name:"Customs Procedures & Foreign Trade Policy",tags:["🌍 EXIM policy","📋 FTP overview"],file:null},
+  ]},
+  ibs:{eye:"Paper 6 · Group II",name:"Integrated Business Solutions",chs:[
+    {n:1,name:"Strategic Management — Frameworks & Models",tags:["🌍 India Inc cases","📐 SWOT/Porter"],file:null},
+    {n:2,name:"Case Study: Financial Reporting + Tax Integration",tags:["🔗 Cross-subject","📝 Practice"],file:null},
+    {n:3,name:"Case Study: AFM + Audit Integration",tags:["🔗 Cross-subject","📝 Practice"],file:null},
+    {n:4,name:"Case Study: GST + Direct Tax Integration",tags:["🔗 Cross-subject","✍️ Answer tips"],file:null},
+  ]},
+  spomA:{eye:"SPOM Set A · Mandatory",name:"Corporate & Economic Laws",chs:[
+    {n:1,name:"Companies Act 2013 — Key Provisions",tags:["🌍 NCLT cases","📐 Flowchart"],file:null},
+    {n:2,name:"SEBI Regulations & Securities Laws",tags:["🌍 Adani-Hindenburg","📋 Regulations"],file:null},
+    {n:3,name:"Insolvency & Bankruptcy Code (IBC)",tags:["🌍 Jet Airways IBC","📐 Resolution process"],file:null},
+    {n:4,name:"FEMA & Foreign Exchange Laws",tags:["🌍 FDI cases","📝 MCQs"],file:null},
+    {n:5,name:"Competition Act 2002",tags:["🌍 CCI orders","🧠 Mnemonics"],file:null},
+    {n:6,name:"Other Economic Laws",tags:["📋 Overview","⚡ Rapid Rev"],file:null},
+  ]},
+  spomB:{eye:"SPOM Set B · Mandatory",name:"Strategic Cost & Performance Management",chs:[
+    {n:1,name:"Strategic Costing Techniques",tags:["🌍 Manufacturing cases","📐 Diagrams"],file:null},
+    {n:2,name:"Cost Optimisation & Value Chain Analysis",tags:["🌍 Amazon supply chain","🧠 Mnemonics"],file:null},
+    {n:3,name:"Balanced Scorecard & Performance Evaluation",tags:["🌍 Infosys BSC","📐 4 perspectives"],file:null},
+    {n:4,name:"Budgetary Control & Variance Analysis",tags:["🔢 Numericals","⚡ Rapid Rev"],file:null},
+    {n:5,name:"Transfer Pricing Strategy",tags:["🌍 MNC pricing cases","📝 MCQs"],file:null},
+  ]},
+  spomC:{eye:"SPOM Set C · Elective",name:"Financial Services & Capital Markets",chs:[
+    {n:1,name:"Introduction to Financial Services & Markets",tags:["📐 Ecosystem map","📝 MCQs"],file:null},
+    {n:2,name:"Mutual Funds — Structure, Types & Regulation",tags:["🌍 Franklin Templeton","📐 Flowchart"],file:null},
+    {n:3,name:"Insurance — Life, Non-Life & IRDA Framework",tags:["🌍 LIC IPO","📋 Regulation"],file:null},
+    {n:4,name:"Leasing & Hire Purchase",tags:["📐 vs Ind AS 116","📝 MCQs"],file:null},
+    {n:5,name:"Venture Capital & Private Equity",tags:["🌍 Zomato IPO","🌍 Indian VC ecosystem"],file:null},
+    {n:6,name:"Factoring & Forfaiting",tags:["📐 Mechanism","⚡ Rapid Rev"],file:null},
+    {n:7,name:"Housing Finance & Mortgage Markets",tags:["🌍 HDFC merger","📋 NHB regulation"],file:null},
+    {n:8,name:"Merchant Banking & Issue Management",tags:["🌍 SEBI IPO norms","📝 MCQs"],file:null},
+    {n:9,name:"Stock Exchanges & SEBI Regulation",tags:["🌍 NSE co-location scam","📐 Market structure"],file:null},
+    {n:10,name:"Derivatives Markets in India",tags:["🌍 F&O ban cases","🔢 Pricing basics"],file:null},
+    {n:11,name:"Foreign Exchange & Forex Markets",tags:["🌍 RBI intervention","📐 Mechanisms"],file:null},
+    {n:12,name:"International Finance — ADR/GDR, ECB, FDI",tags:["🌍 Paytm GDR","📝 MCQs"],file:null},
+    {n:13,name:"Credit Rating — Agencies, Process & Methodology",tags:["✅ DONE","🌍 Adani case","🧠 CAMELS","📝 MCQs"],file:"credit_rating_summary.html"},
+  ]},
+  spomD:{eye:"SPOM Set D · Multidisciplinary",name:"Set D — Multidisciplinary Module",chs:[
+    {n:1,name:"Psychology & Philosophy of Decision Making",tags:["🧠 Behavioural finance","📝 MCQs"],file:null},
+    {n:2,name:"Entrepreneurship & Start-Up Ecosystem",tags:["🌍 Zepto/Meesho cases","📐 Lifecycle"],file:null},
+    {n:3,name:"Indian Constitution & Art of Advocacy",tags:["📋 Key articles","✍️ Answer tips"],file:null},
+    {n:4,name:"Digital Ecosystem & Controls",tags:["🌍 UPI/CBDC","📐 IT framework"],file:null},
+  ]},
+};
+
+function openModal(key){
+  const s=data[key];
+  document.getElementById('m-eye').textContent=s.eye;
+  document.getElementById('m-title').textContent=s.name;
+  document.getElementById('m-chs').innerHTML=s.chs.map(c=>{
+    const tags=c.tags.map(t=>`<span class="ch-t">${t}</span>`).join('');
+    if(c.file){
+      return `<a href="${c.file}" class="ch"><span class="ch-n">${String(c.n).padStart(2,'0')}</span><div class="ch-info"><div class="ch-name">${c.name}</div><div class="ch-tags">${tags}</div></div><span class="ch-st st-r">✓ Study Now</span></a>`;
+    }
+    return `<div class="ch coming"><span class="ch-n">${String(c.n).padStart(2,'0')}</span><div class="ch-info"><div class="ch-name">${c.name}</div><div class="ch-tags">${tags}</div></div><span class="ch-st st-s">Coming Soon</span></div>`;
+  }).join('');
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeOv(e){if(e.target===document.getElementById('modal'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function filterCards(v){
+  v=v.toLowerCase();
+  document.querySelectorAll('.sc').forEach(c=>{
+    c.classList.toggle('hidden',v.length>0&&!c.textContent.toLowerCase().includes(v));
+  });
+}
+
+function copyURL(){
+  navigator.clipboard.writeText('https://merlinroy7303-ui.github.io/CA-Final-Webby').then(()=>{
+    const b=document.getElementById('copy-btn');
+    b.textContent='✓ Copied!';
+    setTimeout(()=>b.textContent='Copy',2000);
+  });
+}
+
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const f=document.getElementById('pfill');
+    if(f)f.style.width='2%';
+  },600);
+});
+</script>
+</body>
+</html>

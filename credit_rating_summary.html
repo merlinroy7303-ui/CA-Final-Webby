@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 13 – Credit Rating</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --cream: #f5f0e8;
+    --green: #1e6b4f;
+    --gold: #c9a84c;
+    --light-green: #eaf5ee;
+    --muted: #6b7280;
+    --border: #d4c9b2;
+    --red: #b03a2e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--green);
+    color: white;
+    padding: 48px 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.15);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 40%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .header-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  header p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    max-width: 560px;
+  }
+
+  /* NAV TABS */
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    background: var(--ink);
+    padding: 0 24px;
+    gap: 0;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 14px 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .tab.active, .tab:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  /* CONTENT */
+  .content { padding: 40px 24px; max-width: 900px; margin: 0 auto; }
+  .section { display: none; animation: fadeIn 0.35s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--green);
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-icon {
+    width: 32px; height: 32px;
+    background: var(--light-green);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+  }
+  .card p, .card li { font-size: 14px; line-height: 1.7; color: #374151; }
+  .card ul { padding-left: 18px; }
+  .card li { margin-bottom: 4px; }
+
+  /* TWO COLUMN */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* TAGS / BADGES */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: var(--light-green);
+    color: var(--green);
+    margin: 3px 2px;
+  }
+  .badge.gold { background: #fdf6e3; color: #9a7318; }
+  .badge.red { background: #fdf0ee; color: var(--red); }
+
+  /* SECTION HEADING */
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .section-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* PROCESS STEPS */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex;
+    gap: 18px;
+    position: relative;
+  }
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .step-line {
+    width: 2px;
+    flex: 1;
+    background: var(--border);
+    margin: 4px 0;
+    min-height: 20px;
+  }
+  .step-body {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    flex: 1;
+  }
+  .step-body strong { font-size: 14px; color: var(--green); }
+  .step-body p { font-size: 13px; color: #4b5563; line-height: 1.6; margin-top: 4px; }
+
+  /* CAMELS */
+  .camels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+  @media (max-width: 600px) { .camels-grid { grid-template-columns: 1fr 1fr; } }
+  .camel-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .camel-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .camel-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .camel-word { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .camel-desc { font-size: 12px; color: #6b7280; line-height: 1.5; }
+
+  /* RATING TABLE */
+  .rating-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; }
+  .rating-table th { background: var(--green); color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+  .rating-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+  .rating-table tr:nth-child(even) td { background: #f9f6f0; }
+  .aaa { color: #155724; font-weight: 700; }
+  .bbb { color: #856404; font-weight: 600; }
+  .d { color: var(--red); font-weight: 700; }
+
+  /* AGENCIES */
+  .agency-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .agency-logo {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: var(--green);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900;
+    font-size: 13px;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+  .agency-name { font-weight: 700; font-size: 14px; color: var(--ink); }
+  .agency-desc { font-size: 13px; color: #6b7280; line-height: 1.5; margin-top: 3px; }
+
+  /* LIMITATIONS */
+  .limit-item {
+    display: flex;
+    gap: 14px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--red);
+  }
+  .limit-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #e5d0ce;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 28px;
+  }
+  .limit-content strong { font-size: 14px; color: var(--red); display: block; margin-bottom: 3px; }
+  .limit-content p { font-size: 13px; color: #4b5563; line-height: 1.6; }
+
+  /* MCQ */
+  .mcq-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 18px;
+  }
+  .mcq-q { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 14px; }
+  .mcq-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media(max-width:500px) { .mcq-opts { grid-template-columns: 1fr; } }
+  .mcq-opt {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fafaf8;
+    color: #374151;
+  }
+  .mcq-opt:hover { border-color: var(--green); background: var(--light-green); }
+  .mcq-opt.correct { border-color: var(--green); background: var(--light-green); color: var(--green); font-weight: 600; }
+  .mcq-opt.wrong { border-color: var(--red); background: #fdf0ee; color: var(--red); }
+  .mcq-feedback { margin-top: 10px; font-size: 13px; font-weight: 500; }
+  .mcq-score-bar {
+    background: var(--light-green);
+    border: 1px solid #c3e6cb;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .score-label { font-size: 13px; color: var(--green); font-weight: 600; }
+  .score-val { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--green); }
+  .reset-btn {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .reset-btn:hover { background: #165840; }
+
+  /* WHAT IS BOX */
+  .what-is {
+    background: var(--green);
+    color: white;
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+  }
+  .what-is h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
+  .what-is p { font-size: 14px; line-height: 1.7; opacity: 0.9; }
+  .what-is .not-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .not-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* RISK GRID */
+  .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  @media(max-width:540px) { .risk-grid { grid-template-columns: 1fr; } }
+  .risk-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .risk-card .risk-title { font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+  .risk-card p { font-size: 12.5px; color: #4b5563; line-height: 1.6; }
+
+  footer {
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">Chapter 13 · ICAI – Financial Services & Capital Markets</div>
+  <h1>Credit Rating</h1>
+  <p>A comprehensive structured summary covering all learning outcomes — from fundamentals to contemporary regulatory developments.</p>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" onclick="showSection('overview')">Overview</button>
+  <button class="tab" onclick="showSection('services')">Rating Services</button>
+  <button class="tab" onclick="showSection('process')">Process</button>
+  <button class="tab" onclick="showSection('methodology')">Methodology</button>
+  <button class="tab" onclick="showSection('camels')">CAMELS</button>
+  <button class="tab" onclick="showSection('agencies')">Agencies</button>
+  <button class="tab" onclick="showSection('limitations')">Limitations</button>
+  <button class="tab" onclick="showSection('mcq')">Quiz</button>
+</nav>
+
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <div class="section active" id="overview">
+    <div class="section-heading">What is Credit Rating?</div>
+    <div class="section-sub">Core definition, objectives, and uses</div>
+
+    <div class="what-is">
+      <h2>Definition</h2>
+      <p>A credit rating is a <strong>rating agency's opinion</strong> on the likelihood of default on principal and interest payments for a debt instrument. Expressed via a simple alphanumeric symbol — it is <em>not a guarantee</em> of performance.</p>
+      <div class="not-list">
+        <span class="not-badge">❌ Not insurance against default</span>
+        <span class="not-badge">❌ Not a performance judgment</span>
+        <span class="not-badge">❌ Not for equity (usually)</span>
+        <span class="not-badge">❌ Not linked to legal compliance</span>
+        <span class="not-badge">✅ Dynamic & subject to change</span>
+        <span class="not-badge">✅ Instrument-specific</span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title"><div class="card-icon">🎯</div> Objectives</div>
+        <ul>
+          <li>Rate debt obligations of companies</li>
+          <li>Guide investors on repayment risk</li>
+          <li>Spread awareness among corporates & regulators</li>
+          <li>Create an environment for debt rating</li>
+          <li>Build investor confidence</li>
+          <li>Encourage quality-consciousness in issuers</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card">
+          <div class="card-title"><div class="card-icon">👤</div> Uses for Investors</div>
+          <ul>
+            <li>Aids investment decisions</li>
+            <li>Provides credible, standardised information</li>
+            <li>Saves time & cost of in-depth analysis</li>
+            <li>Enables comparison across instruments</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="card-icon">🏢</div> Uses for Issuers</div>
+          <ul>
+            <li>Meets SEBI regulatory obligations</li>
+            <li>Helps raise capital at lower interest rates</li>
+            <li>Enhances goodwill &amp; market image</li>
+            <li>Serves as a marketing tool</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="card-icon">📊</div> Sample Rating Scores (India)</div>
+      <table class="rating-table">
+        <thead>
+          <tr><th>Safety Level</th><th>CRISIL</th><th>ICRA</th><th>CARE</th><th>FITCH</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Highest Safety</td><td class="aaa">AAA</td><td>LAAA</td><td>CARE AAA (L)</td><td>AAA (ind)</td></tr>
+          <tr><td>High Safety</td><td>AA</td><td>LAA</td><td>CARE AA (L)</td><td>AA (ind)</td></tr>
+          <tr><td>Adequate Safety</td><td>A</td><td>LA</td><td>CARE A (L)</td><td>A (ind)</td></tr>
+          <tr><td>Moderate Safety</td><td class="bbb">BBB</td><td>LBBB</td><td>CARE BBB (L)</td><td>BBB (ind)</td></tr>
+          <tr><td>Inadequate Safety</td><td>BB</td><td>LBB</td><td>CARE BB (L)</td><td>BB (ind)</td></tr>
+          <tr><td>High Risk</td><td>B</td><td>LB</td><td>CARE B (L)</td><td>B (ind)</td></tr>
+          <tr><td>Substantial Risk</td><td>C</td><td>LC</td><td>CARE C (L)</td><td>C (ind)</td></tr>
+          <tr><td>Default</td><td class="d">D</td><td>LD</td><td>CARE D (L)</td><td>D (ind)</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:#9ca3af;">Note: Modifiers (+/–) may be added to reflect comparative standing within a category.</p>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section" id="services">
+    <div class="section-heading">Rating Services</div>
+    <div class="section-sub">Types of credit ratings offered — illustrated via CRISIL</div>
+
+    <div class="card"><div class="card-title"><div class="card-icon">🏭</div> (i) Corporate Sector Ratings</div><p>For companies launching debt instruments. CRISIL uses a three-pronged approach: <span class="badge">Business Risk</span><span class="badge">Management Risk</span><span class="badge">Financial Risk</span> along with parent/group support.</p></div>
+
+    <div class="card"><div class="card-title"><div class="card-icon">🏦</div> (ii) Financial Sector Ratings</div><p>For banks, NBFCs, housing finance, securities firms. Uses the <strong>CRAMEL framework</strong>: <span class="badge">Capital</span><span class="badge">Resource Raising</span><span class="badge">Asset Quality</span><span class="badge">Management</span><span class="badge">Earnings</span><span class="badge">Liquidity</span></p></div>
+
+    <div class="card"><div class="card-title"><div class="card-icon">🔗</div> (iii) Structured Finance</div><p>For complex instruments such as CDOs, synthetic instruments, and syndicated loans — where conventional financing is insufficient. Ratings capture nuances of underlying asset classes.</p></div>
+
+    <div class="two-col">
+      <div class="card"><div class="card-title"><div class="card-icon">💳</div> (iv) Credit Quality Ratings</div><p>Expresses expected default probability of debt securities held by debt funds. Assigned only to funds investing entirely in debt.</p></div>
+      <div class="card"><div class="card-title"><div class="card-icon">🔄</div> (v) Recovery Risk Rating</div><p>Measures variability in post-default recovery. Key drivers: collateral coverage, asset quality, seniority of instrument.</p></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card"><div class="card-title"><div class="card-icon">📉</div> (vi) Expected Loss (EL) Ratings</div><p>Developed for operational infrastructure projects. Seven-point scale <strong>EL1–EL7</strong>, where EL1 = lowest expected loss. Considers both probability of default and post-default recoveries.</p></div>
+      <div class="card"><div class="card-title"><div class="card-icon">🛡️</div> (vii) Insurance Hybrids</div><p>For subordinated debt / preference shares of insurers (permitted by IRDA). Considers industry risk, business risk, financials, risk management, and parental support.</p></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card"><div class="card-title"><div class="card-icon">⚖️</div> (viii) Independent Credit Evaluation (ICE)</div><p>For resolution plans of large accounts (≥ ₹1 billion). Mandated by RBI (Aug 2020) for COVID-19 stress resolution plans.</p></div>
+      <div class="card"><div class="card-title"><div class="card-icon">🏗️</div> (ix) REITs / InvITs Ratings</div><p>For Real Estate & Infrastructure Investment Trusts. Focuses on underlying asset portfolio quality, cash flows, leverage, and investment manager experience.</p></div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="section" id="process">
+    <div class="section-heading">Credit Rating Process</div>
+    <div class="section-sub">Step-by-step flow from issuer request to ongoing monitoring</div>
+
+    <div class="card" style="margin-bottom:24px; background:#f0f7f3; border-color:#a7d3bb;">
+      <div class="card-title" style="color:#155740;">Three Key Determinants of a Rating</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;">
+        <span class="badge">Issuer's ability to pay</span>
+        <span class="badge">Security owner's claim strength</span>
+        <span class="badge">Economic significance of industry</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">a</div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Request & Analysis</strong><p>Issuer approaches the agency. A team gathers info on historical performance, competitive position, business strategies, financial policies, and industry context.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">b</div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Rating Committee</strong><p>Analysts present their findings to an internal Rating Committee. The issuer does not participate — this is an independent evaluation.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">c</div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Communication & Appeal</strong><p>Rating is shared with the issuer along with supporting rationale. If the issuer disagrees, they may appeal with additional material information.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">d</div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Public Announcement</strong><p>If accepted by the issuer, the rating agency makes a public announcement. Unaccepted ratings may still be disclosed on the agency's website.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">e</div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Monitoring</strong><p>Ratings are kept under continuous watch throughout the instrument's tenure. Annual reviews are carried out when no change is needed.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">f</div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Rating Watch</strong><p>A rated instrument may be placed on "Rating Watch" if significant developments arise. This triggers a full-scale review that may upgrade or downgrade the rating.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">g</div></div>
+        <div class="step-body"><strong>Rating Coverage</strong><p>Ratings cover public utilities, financial institutions, infrastructure, SPVs, MNCs (via guarantees/LoCs), and Corporate Governance Ratings.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="section" id="methodology">
+    <div class="section-heading">Credit Rating Methodology</div>
+    <div class="section-sub">Four broad pillars analysed by credit rating agencies</div>
+
+    <div class="card" style="border-left-color:#e67e22;">
+      <div class="card-title" style="color:#b05a10;"><div class="card-icon" style="background:#fef3e2;">⚠️</div> (i) Business Risk</div>
+      <p style="margin-bottom:12px;">Risk of lower profits than anticipated. Divided into four sub-categories:</p>
+      <div class="risk-grid">
+        <div class="risk-card">
+          <div class="risk-title">🧭 Strategic Risk</div>
+          <p>When a company's strategy becomes less effective due to tech changes, new competitors, shifting demand. <em>e.g. Kodak ignoring digital cameras; Nokia missing touch screens.</em></p>
+        </div>
+        <div class="risk-card">
+          <div class="risk-title">📋 Compliance Risk</div>
+          <p>Risk of failing to comply with laws in a new sector or geography. Especially relevant under Companies Act 2013 and evolving SEBI guidelines.</p>
+        </div>
+        <div class="risk-card">
+          <div class="risk-title">⚙️ Operational Risk</div>
+          <p>Internal failure in people or processes — e.g. erroneous payments. Locational advantage, labour relations, and cost structure can improve ratings.</p>
+        </div>
+        <div class="risk-card">
+          <div class="risk-title">🌐 Reputational Risk</div>
+          <p>Usually follows a business risk event. e.g. GM's India exit hurt its reputation. Conversely, adding new products boosts investor confidence.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-left-color:#2980b9;">
+      <div class="card-title" style="color:#1a5f8a;"><div class="card-icon" style="background:#e8f4fb;">💰</div> (ii) Financial Risk</div>
+      <p style="margin-bottom:12px;">Unexpected changes in financial conditions — prices, exchange rates, interest rates, credit ratings.</p>
+      <div class="two-col">
+        <div>
+          <p><strong>Counter Party Risk</strong> — Non-honouring of obligations (delivery failure, default on borrowings)</p><br>
+          <p><strong>Political Risk</strong> — Adverse host-country government actions: confiscation, currency restrictions, patent invalidation, price controls</p><br>
+          <p><strong>Interest Rate Risk</strong> — Changes in rates alter asset/liability values; critical for banks</p>
+        </div>
+        <div>
+          <p><strong>Currency Risk</strong> — Cash flows affected by exchange rate movements. Exporters gain; importers lose when rupee depreciates</p><br>
+          <p><strong>Accounting Risk</strong> — Deviations from standard accounting (overstatement, off-balance-sheet liabilities) distort credit analysis</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card" style="border-left-color:#8e44ad;">
+        <div class="card-title" style="color:#6c3483;"><div class="card-icon" style="background:#f5eeff;">👔</div> (iii) Management Evaluation</div>
+        <p>Assessed via the MD&A Report (mandatory for listed companies). Key factors: track record, managerial talent depth, succession plans, capacity to handle adversity, and management philosophy.</p>
+      </div>
+      <div class="card" style="border-left-color:#16a085;">
+        <div class="card-title" style="color:#0e6655;"><div class="card-icon" style="background:#e8f8f5;">🌍</div> (iv) Business Environment Analysis</div>
+        <p>Examines external factors — new laws, consumer trends, technology shifts, macro-economic conditions (recession risk, inflation). Strategies are then developed to counter negative impacts.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAMELS -->
+  <div class="section" id="camels">
+    <div class="section-heading">CAMELS Model</div>
+    <div class="section-sub">International rating system used by bank supervisory authorities for financial institutions</div>
+
+    <div class="camels-grid">
+      <div class="camel-card">
+        <div class="camel-letter">C</div>
+        <div class="camel-word">Capital Adequacy</div>
+        <div class="camel-desc">Assesses capital adequacy through capital trend analysis and compliance with risk-based net-worth regulations.</div>
+      </div>
+      <div class="camel-card">
+        <div class="camel-letter">A</div>
+        <div class="camel-word">Asset Quality</div>
+        <div class="camel-desc">Evaluates loan quality, fair market vs book value of investments, recoverability of receivables.</div>
+      </div>
+      <div class="camel-card">
+        <div class="camel-letter">M</div>
+        <div class="camel-word">Management</div>
+        <div class="camel-desc">Measures management involvement, decision-making quality, teamwork, and ability to respond to financial stress.</div>
+      </div>
+      <div class="camel-card">
+        <div class="camel-letter">E</div>
+        <div class="camel-word">Earnings</div>
+        <div class="camel-desc">Assesses the institution's ability to sustain, expand, and remain competitive through earnings growth and net margins.</div>
+      </div>
+      <div class="camel-card">
+        <div class="camel-letter">L</div>
+        <div class="camel-word">Liquidity</div>
+        <div class="camel-desc">Working capital management effectiveness and the corporate's ability to meet short-term commitments.</div>
+      </div>
+      <div class="camel-card">
+        <div class="camel-letter">S</div>
+        <div class="camel-word">Sensitivity</div>
+        <div class="camel-desc">Verifies vulnerability of the institution to specific risk exposures — internal and external factors.</div>
+      </div>
+    </div>
+
+    <div class="card" style="background:#f9f6f0;">
+      <div class="card-title"><div class="card-icon">💡</div> How CAMELS is applied</div>
+      <p>Rating agencies weigh the positive and negative aspects under each CAMELS category. The net score across all six dimensions feeds into the <strong>overall creditworthiness</strong> rating of the issuer and, by extension, the instrument.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="card-icon">🔄</div> Rating Revisions & Default Rates</div>
+      <p style="margin-bottom:12px;">SEBI mandates continuous monitoring throughout an instrument's lifetime. Key metrics:</p>
+      <div class="two-col">
+        <div>
+          <span class="badge gold">Default Rate</span>
+          <p style="margin-top:8px;font-size:13px;">% of rated firms that defaulted in a given period. Higher rating = lower default probability. CRISIL AAA: <strong>0.00%</strong> over 3 years.</p>
+        </div>
+        <div>
+          <span class="badge gold">Transition Rate</span>
+          <p style="margin-top:8px;font-size:13px;">% of firms whose ratings changed. Between FY11–21, 96.28% of CRISIL AA entities maintained their rating; 1.3% were upgraded.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AGENCIES -->
+  <div class="section" id="agencies">
+    <div class="section-heading">Credit Rating Agencies</div>
+    <div class="section-sub">Key agencies in India and globally — all recognised by SEBI</div>
+
+    <p style="font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:16px;">🇮🇳 India</p>
+
+    <div class="agency-card">
+      <div class="agency-logo">CRISIL</div>
+      <div><div class="agency-name">Credit Rating Information Services of India Ltd. (CRISIL)</div><div class="agency-desc">Founded pre-reforms era. India's leading agency with <strong>60%+ market share</strong>. Tied up with Standard &amp; Poor's (USA). Covers 1,800+ companies and 3,600+ instruments.</div></div>
+    </div>
+    <div class="agency-card">
+      <div class="agency-logo">ICRA</div>
+      <div><div class="agency-name">Investment Information and Credit Rating Agency (ICRA)</div><div class="agency-desc">Began in 1991. Largest shareholder is Moody's Investor Services (via its Indian subsidiary). Covers 2,500+ instruments.</div></div>
+    </div>
+    <div class="agency-card">
+      <div class="agency-logo">CARE</div>
+      <div><div class="agency-name">Credit Analysis and Research Ltd. (CARE)</div><div class="agency-desc">Established in 1993. Promoted by UTI, IDBI, and Canara Bank. Covers 2,500+ instruments.</div></div>
+    </div>
+    <div class="agency-card">
+      <div class="agency-logo">Fitch</div>
+      <div><div class="agency-name">Fitch Ratings India (P) Ltd.</div><div class="agency-desc">100% subsidiary of the international Fitch Group. Covers corporates, governments, structured finance, and debt instruments.</div></div>
+    </div>
+    <div class="agency-card">
+      <div class="agency-logo" style="font-size:10px;">ONICRA</div>
+      <div><div class="agency-name">Onida Individual Credit Rating Agency (ONICRA)</div><div class="agency-desc">India's first <em>individual</em> credit rating company (1993). Provides ratings for individual loan applicants, employee screening, and SME ratings.</div></div>
+    </div>
+
+    <p style="font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin:24px 0 16px;">🌍 International</p>
+
+    <div class="two-col">
+      <div class="agency-card" style="flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;"><div class="agency-logo" style="font-size:11px;background:#c0392b;">S&P</div><div class="agency-name">Standard & Poor's (S&P)</div></div>
+        <div class="agency-desc">150+ years in credit rating. World's leading provider. Operates in ~28 countries.</div>
+      </div>
+      <div class="agency-card" style="flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;"><div class="agency-logo" style="background:#e67e22;">Fitch</div><div class="agency-name">Fitch Ratings</div></div>
+        <div class="agency-desc">Top-3 global agency. HQ in New York & London. Uses AAA–D scale (introduced 1924). Operations in 30+ countries.</div>
+      </div>
+    </div>
+    <div class="agency-card">
+      <div class="agency-logo" style="background:#2980b9;">M</div>
+      <div><div class="agency-name">Moody's Ratings</div><div class="agency-desc">Global presence in 36 countries, ~10,700 employees. Helps build transparent, integrated financial markets. Revenue: $3.6 billion (2016).</div></div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--red); margin-top:24px;">
+      <div class="card-title" style="color:var(--red);"><div class="card-icon" style="background:#fdf0ee;">🚨</div> Credit Rating Agencies & the US Sub-Prime Crisis (2007–08)</div>
+      <p>Agencies were criticised for assigning high ratings (AAA) to MBS and CDO instruments backed by subprime mortgages (≈ $3.2 trillion in risky loans). These instruments collapsed, leading to <strong>$523 billion in bank write-downs</strong> by September 2008. Conflict of interest was a key issue — complex securities earned agencies <em>3× more</em> in fees than traditional corporate bonds.</p>
+    </div>
+  </div>
+
+  <!-- LIMITATIONS -->
+  <div class="section" id="limitations">
+    <div class="section-heading">Limitations of Credit Rating</div>
+    <div class="section-sub">Key shortcomings and governance concerns</div>
+
+    <div class="limit-item">
+      <div class="limit-num">1</div>
+      <div class="limit-content"><strong>Rating Changes</strong><p>Ratings can change over time. Downgrades may not happen quickly enough to protect investors. Ratings do not guarantee financial strength.</p></div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-num">2</div>
+      <div class="limit-content"><strong>Industry-Specific, Not Company-Specific</strong><p>Agencies focus on macro trends and industry-level factors rather than individual company performance, potentially over-reacting to sector cycles.</p></div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-num">3</div>
+      <div class="limit-content"><strong>Cost-Benefit Analysis Ignored</strong><p>Mandatory rating requirements remove cost-benefit judgment. Rating should ideally be optional, allowing corporates to self-assess.</p></div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-num">4</div>
+      <div class="limit-content"><strong>Conflict of Interest</strong><p>Agencies are paid by the same entities they rate. In a competitive market, this creates pressure to assign favourable ratings.</p></div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-num">5</div>
+      <div class="limit-content"><strong>Reliance on Borrower-Provided Information</strong><p>Ratings are based on information supplied by the issuer, which may be inaccurate, incomplete, or selectively presented.</p></div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-num">6</div>
+      <div class="limit-content"><strong>Lack of Accountability</strong><p>Credit rating is merely an opinion — agencies are not legally accountable. Inexperienced staff may draw incorrect conclusions.</p></div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-num">7</div>
+      <div class="limit-content"><strong>Corporate Governance Issues</strong><p>Revenue concentration from a single client group, aggressive competitive practices, and insufficient disclosure of rating assumptions all undermine the system's integrity.</p></div>
+    </div>
+
+    <div class="card" style="background:var(--light-green); border-color:#a7d3bb; margin-top:20px;">
+      <div class="card-title"><div class="card-icon">📡</div> Contemporary Developments</div>
+      <ul style="font-size:13px;line-height:1.8;">
+        <li><strong>SEBI</strong> mandates disclosure of <em>probability of default</em> benchmarks for each rating category (1-year, 2-year, 3-year CDRs), aligning India with global standards.</li>
+        <li><strong>RBI</strong> has encouraged rating agencies to use <em>AI, machine learning, and social media monitoring</em> to catch stress signals proactively before defaults occur.</li>
+        <li>Agencies may be granted access to RBI's CRILC (Central Repository of Information on Large Credits) database.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="section" id="mcq">
+    <div class="section-heading">Quick Quiz</div>
+    <div class="section-sub">Test your understanding — click an option to check your answer</div>
+
+    <div class="mcq-score-bar">
+      <div>
+        <div class="score-label">Score</div>
+        <div class="score-val" id="score-display">0 / 7</div>
+      </div>
+      <button class="reset-btn" onclick="resetQuiz()">↺ Reset Quiz</button>
+    </div>
+
+    <div id="quiz-container"></div>
+  </div>
+
+</div>
+
+<footer>ICAI · Financial Services & Capital Markets · Chapter 13 — Credit Rating · Summary for Study Purposes</footer>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Quiz
+  const questions = [
+    { q: "Which company is primarily engaged in rating of individuals?", opts: ["ICRA", "CRISIL", "ONICRA", "CARE"], ans: 2 },
+    { q: "The rate that measures changes in ratings of a company over a specified period is:", opts: ["Transition rate", "Default rate", "Recovery rate", "Negative rate"], ans: 0 },
+    { q: "Which is NOT a parameter in the CAMELS model?", opts: ["Capital adequacy", "Financial performance", "Sensitivity", "Management"], ans: 1 },
+    { q: "Credit rating services might be of LEAST utility to:", opts: ["Lender", "Borrower", "Customer", "Government"], ans: 2 },
+    { q: "Credit rating is NOT:", opts: ["Important input for investment decisions", "Dynamic", "Safeguard against default", "Assigned to debt instruments"], ans: 2 },
+    { q: "Which among the following is NOT a problem with credit rating agencies in India?", opts: ["Conflict of interest", "More competition", "Poor rating quality", "Independence of ratings committee"], ans: 1 },
+    { q: "Which is a solution to challenges in credit rating agencies?", opts: ["Persistence of conflict of interest", "Introduction of more players", "Non-rotation of agencies", "Unawareness among investors"], ans: 1 },
+  ];
+
+  let scores = new Array(questions.length).fill(null);
+  let answered = new Array(questions.length).fill(false);
+
+  function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+    questions.forEach((q, qi) => {
+      const card = document.createElement('div');
+      card.className = 'mcq-card';
+      card.innerHTML = `
+        <div class="mcq-q">${qi + 1}. ${q.q}</div>
+        <div class="mcq-opts" id="opts-${qi}">
+          ${q.opts.map((o, oi) => `<button class="mcq-opt" onclick="answer(${qi}, ${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`).join('')}
+        </div>
+        <div class="mcq-feedback" id="fb-${qi}"></div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function answer(qi, chosen) {
+    if (answered[qi]) return;
+    answered[qi] = true;
+    const correct = questions[qi].ans;
+    const opts = document.querySelectorAll(`#opts-${qi} .mcq-opt`);
+    opts.forEach((o, i) => {
+      if (i === correct) o.classList.add('correct');
+      else if (i === chosen) o.classList.add('wrong');
+      o.style.pointerEvents = 'none';
+    });
+    const fb = document.getElementById(`fb-${qi}`);
+    if (chosen === correct) {
+      fb.textContent = '✅ Correct!';
+      fb.style.color = 'var(--green)';
+      scores[qi] = 1;
+    } else {
+      fb.textContent = `❌ Incorrect. Correct: ${String.fromCharCode(65 + correct)}. ${questions[qi].opts[correct]}`;
+      fb.style.color = 'var(--red)';
+      scores[qi] = 0;
+    }
+    const total = scores.filter(s => s === 1).length;
+    const attempted = answered.filter(Boolean).length;
+    document.getElementById('score-display').textContent = `${total} / ${attempted}`;
+  }
+
+  function resetQuiz() {
+    scores = new Array(questions.length).fill(null);
+    answered = new Array(questions.length).fill(false);
+    document.getElementById('score-display').textContent = '0 / 7';
+    renderQuiz();
+  }
+
+  renderQuiz();
+</script>
+</body>
+</html>
