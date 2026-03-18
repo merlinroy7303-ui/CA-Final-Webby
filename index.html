@@ -216,7 +216,7 @@ footer strong{color:var(--gold);}
   <div class="tracker">
     <div class="t-title">📊 Your Progress Dashboard</div>
     <div class="t-grid">
-      <div class="t-stat"><span class="t-num" style="color:var(--gold)">1</span><div class="t-label">Chapters Done</div></div>
+      <div class="t-stat"><span class="t-num" style="color:var(--gold)">3</span><div class="t-label">Chapters Done</div></div>
       <div class="t-stat"><span class="t-num" style="color:var(--blue)">6</span><div class="t-label">Core Papers</div></div>
       <div class="t-stat"><span class="t-num" style="color:var(--purple)">4</span><div class="t-label">SPOM Sets</div></div>
       <div class="t-stat"><span class="t-num" style="color:var(--green)">∞</span><div class="t-label">Potential</div></div>
@@ -306,16 +306,16 @@ footer strong{color:var(--gold);}
     <div class="sc-head"><div class="sc-icon">📈</div><div class="sc-badge">Set B</div></div>
     <div class="sc-grp">SPOM · Mandatory · Min 40 hrs</div>
     <div class="sc-name">Strategic Cost & Performance Management</div>
-    <div class="sc-desc">Strategic Costing, Cost Optimisation, Balanced Scorecard, Performance Evaluation & Budgetary Control.</div>
-    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">📊 Costing</span><span class="sc-tag">🎯 Strategy</span></div><div class="sc-arr">→</div></div>
+    <div class="sc-desc">Strategic Costing, Cost Optimisation, Balanced Scorecard, Performance Evaluation & Budgetary Control. Chapter 1 ready! ✅</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">✅ Ch.1 Ready</span><span class="sc-tag">🎯 Strategy</span></div><div class="sc-arr">→</div></div>
   </div>
   <div class="sc cb" onclick="openModal('spomC')">
     <div class="sc-bar"></div>
     <div class="sc-head"><div class="sc-icon">🌐</div><div class="sc-badge">Set C · Elective</div></div>
     <div class="sc-grp">SPOM · Financial Services & Capital Markets</div>
     <div class="sc-name">Financial Services & Capital Markets</div>
-    <div class="sc-desc">Your chosen elective — Credit Rating, Capital Markets, SEBI, Mutual Funds & more. Chapter 13 already done! ✅</div>
-    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">✅ Ch.13 Ready</span><span class="sc-tag">📰 News</span></div><div class="sc-arr">→</div></div>
+    <div class="sc-desc">Your chosen elective — Credit Rating, Capital Markets, SEBI, Mutual Funds & more. Ch.1 & Ch.13 already done! ✅</div>
+    <div class="sc-foot"><div class="sc-tags"><span class="sc-tag">✅ Ch.1 Ready</span><span class="sc-tag">✅ Ch.13 Ready</span></div><div class="sc-arr">→</div></div>
   </div>
   <div class="sc cp" onclick="openModal('spomD')">
     <div class="sc-bar"></div>
@@ -447,14 +447,20 @@ const data = {
     {n:6,name:"Other Economic Laws",tags:["📋 Overview","⚡ Rapid Rev"],file:null},
   ]},
   spomB:{eye:"SPOM Set B · Mandatory",name:"Strategic Cost & Performance Management",chs:[
-    {n:1,name:"Strategic Costing Techniques",tags:["🌍 Manufacturing cases","📐 Diagrams"],file:null},
-    {n:2,name:"Cost Optimisation & Value Chain Analysis",tags:["🌍 Amazon supply chain","🧠 Mnemonics"],file:null},
-    {n:3,name:"Balanced Scorecard & Performance Evaluation",tags:["🌍 Infosys BSC","📐 4 perspectives"],file:null},
-    {n:4,name:"Budgetary Control & Variance Analysis",tags:["🔢 Numericals","⚡ Rapid Rev"],file:null},
-    {n:5,name:"Transfer Pricing Strategy",tags:["🌍 MNC pricing cases","📝 MCQs"],file:null},
+    {n:1,name:"An Introduction to Strategic Cost Management",tags:["✅ DONE","🏛️ 3 Pillars","🔗 Value Chain","🎯 Porter's 5 Forces","🧠 Mnemonics","📝 MCQs"],file:"scpm_ch1_strategic_cost_management.html"},
+    {n:2,name:"Modern Business Environment",tags:["🌍 Industry 4.0","📐 PESTEL","⚡ Rapid Rev"],file:null},
+    {n:3,name:"Lean System & Innovation",tags:["🌍 Toyota Lean","📐 Kaizen","📝 MCQs"],file:null},
+    {n:4,name:"Cost Management Techniques",tags:["🔢 Target Costing","🌍 Cases","🧠 Mnemonics"],file:null},
+    {n:5,name:"Decision Making",tags:["🔢 Numericals","📐 Flowchart","📝 MCQs"],file:null},
+    {n:6,name:"Budgetary Control",tags:["🔢 Variance Analysis","⚡ Rapid Rev"],file:null},
+    {n:7,name:"Standard Costing & Variance Analysis",tags:["🔢 Numericals","📝 MCQs"],file:null},
+    {n:8,name:"Divisional Performance Measurement",tags:["📐 ROI vs RI","🌍 MNC cases"],file:null},
+    {n:9,name:"Strategic Performance Measures in Private Sector",tags:["🌍 Infosys BSC","📐 4 perspectives"],file:null},
+    {n:10,name:"Performance Measurement in Not-for-Profit Organisations",tags:["📋 KPIs","📝 MCQs"],file:null},
+    {n:11,name:"Case Study on Performance Measurement",tags:["✍️ Integrated case","📝 Practice"],file:null},
   ]},
   spomC:{eye:"SPOM Set C · Elective",name:"Financial Services & Capital Markets",chs:[
-    {n:1,name:"Introduction to Financial Services & Markets",tags:["📐 Ecosystem map","📝 MCQs"],file:null},
+    {n:1,name:"Introduction to Financial Markets",tags:["✅ DONE","📐 8 Markets","🌍 IL&FS Crisis","🧠 Mnemonics","📝 MCQs"],file:"fscm_ch1_financial_markets.html"},
     {n:2,name:"Mutual Funds — Structure, Types & Regulation",tags:["🌍 Franklin Templeton","📐 Flowchart"],file:null},
     {n:3,name:"Insurance — Life, Non-Life & IRDA Framework",tags:["🌍 LIC IPO","📋 Regulation"],file:null},
     {n:4,name:"Leasing & Hire Purchase",tags:["📐 vs Ind AS 116","📝 MCQs"],file:null},
@@ -516,7 +522,7 @@ function copyURL(){
 window.addEventListener('load',()=>{
   setTimeout(()=>{
     const f=document.getElementById('pfill');
-    if(f)f.style.width='2%';
+    if(f)f.style.width='5%';
   },600);
 });
 </script>
