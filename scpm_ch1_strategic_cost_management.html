@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCPM Ch.1 – Introduction to Strategic Cost Management | CA Final Rank Hub</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Rajdhani:wght@400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0a0e14;
+    --bg2: #0f1520;
+    --bg3: #141d2b;
+    --card: #111827;
+    --card2: #0d1520;
+    --border: #1e2d42;
+    --gold: #d4a843;
+    --gold2: #f0c060;
+    --teal: #22c5a0;
+    --blue: #3b9ede;
+    --purple: #9b72cf;
+    --red: #e05c5c;
+    --green: #4caf7d;
+    --orange: #e08030;
+    --text: #d4dbe8;
+    --text2: #8da0bb;
+    --text3: #5a7090;
+    --white: #f0f4fa;
+    --glow: rgba(212,168,67,0.12);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, #050810 0%, #0a1525 40%, #0d1e35 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 50px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 30%, rgba(212,168,67,0.06) 0%, transparent 60%);
+  }
+  .hero-breadcrumb {
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text3); margin-bottom: 12px;
+  }
+  .hero-breadcrumb span { color: var(--gold); }
+  .hero-tag {
+    display: inline-block; background: rgba(212,168,67,0.15);
+    border: 1px solid var(--gold); border-radius: 4px;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); padding: 4px 12px; margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(22px, 4vw, 38px);
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 16px;
+    text-shadow: 0 0 40px rgba(212,168,67,0.2);
+  }
+  h1 span { color: var(--gold); }
+  .hero-meta {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    font-size: 13px; color: var(--text3); letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .hero-meta b { color: var(--teal); }
+
+  /* ── NAV PILLS ── */
+  .nav-pills {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 40px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .nav-pills a {
+    text-decoration: none;
+    font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text3);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    transition: all 0.2s;
+  }
+  .nav-pills a:hover { color: var(--gold); border-color: var(--gold); background: var(--glow); }
+
+  /* ── MAIN LAYOUT ── */
+  .main { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    margin: 50px 0 24px;
+  }
+  .section-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px; color: var(--white);
+    letter-spacing: 1px;
+  }
+  .section-header h2 span { color: var(--gold); }
+  .section-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 14px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+
+  /* ── EVOLUTION TIMELINE ── */
+  .evolution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px; margin: 20px 0;
+  }
+  .evo-step {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+  }
+  .evo-step::after {
+    content: '→';
+    position: absolute;
+    right: -14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold); font-size: 18px;
+    z-index: 1;
+  }
+  .evo-step:last-child::after { display: none; }
+  .evo-num {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text3); margin-bottom: 8px;
+  }
+  .evo-label {
+    font-size: 13px; font-weight: 700; color: var(--white);
+    margin-bottom: 6px;
+  }
+  .evo-desc { font-size: 12px; color: var(--text2); }
+  .evo-step.current { border-color: var(--gold); background: rgba(212,168,67,0.06); }
+  .evo-step.current .evo-label { color: var(--gold); }
+
+  /* ── LIMITATIONS TABLE ── */
+  .limit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px; margin: 16px 0;
+  }
+  .limit-card {
+    background: rgba(224,92,92,0.06);
+    border: 1px solid rgba(224,92,92,0.25);
+    border-left: 3px solid var(--red);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .limit-card .lc-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--red); margin-bottom: 6px;
+  }
+  .limit-card p { font-size: 13px; color: var(--text2); }
+
+  /* ── THREE PILLARS ── */
+  .pillars-wrap {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .pillar-card {
+    flex: 1; min-width: 220px;
+    background: var(--bg3);
+    border-radius: 10px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .pillar-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .pillar-card.p1::before { background: var(--teal); }
+  .pillar-card.p2::before { background: var(--gold); }
+  .pillar-card.p3::before { background: var(--purple); }
+  .pillar-icon { font-size: 32px; margin-bottom: 12px; }
+  .pillar-card h3 { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .pillar-card.p1 h3 { color: var(--teal); }
+  .pillar-card.p2 h3 { color: var(--gold); }
+  .pillar-card.p3 h3 { color: var(--purple); }
+  .pillar-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+  /* ── VALUE CHAIN DIAGRAM ── */
+  .vc-primary {
+    display: flex; gap: 0; margin: 20px 0;
+    overflow-x: auto;
+  }
+  .vc-box {
+    flex: 1; min-width: 110px;
+    background: rgba(59,158,222,0.08);
+    border: 1px solid rgba(59,158,222,0.25);
+    padding: 14px 10px;
+    text-align: center;
+    position: relative;
+    cursor: default;
+    transition: background 0.2s;
+  }
+  .vc-box:hover { background: rgba(59,158,222,0.18); }
+  .vc-box + .vc-box { border-left: none; }
+  .vc-box .num {
+    display: block; font-size: 10px; font-weight: 700;
+    letter-spacing: 1px; color: var(--blue); margin-bottom: 6px;
+  }
+  .vc-box .title {
+    font-size: 12px; font-weight: 700; color: var(--white); margin-bottom: 5px;
+  }
+  .vc-box .micro {
+    font-size: 10px; color: var(--text3); line-height: 1.4;
+  }
+  .vc-support {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-bottom: 0;
+  }
+  .vc-supp {
+    background: rgba(155,114,207,0.08);
+    border: 1px solid rgba(155,114,207,0.2);
+    padding: 10px; text-align: center;
+  }
+  .vc-supp + .vc-supp { border-left: none; }
+  .vc-supp .title { font-size: 11px; font-weight: 700; color: var(--purple); }
+  .vc-supp .micro { font-size: 10px; color: var(--text3); }
+  .vc-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text3); margin-bottom: 8px; padding: 6px 12px;
+    background: var(--bg3); border: 1px solid var(--border); display: inline-block; border-radius: 4px;
+  }
+  .margin-bar {
+    background: linear-gradient(135deg, var(--gold), var(--orange));
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: 14px 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    color: var(--bg); text-transform: uppercase;
+    border-radius: 0 8px 8px 0;
+    display: flex; align-items: center; justify-content: center;
+    min-width: 36px;
+  }
+
+  /* ── PORTER'S FIVE FORCES ── */
+  .five-forces {
+    display: grid;
+    grid-template-areas:
+      ". top ."
+      "left center right"
+      ". bottom .";
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 12px;
+    max-width: 700px; margin: 20px auto;
+  }
+  .ff-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .ff-box.center {
+    grid-area: center;
+    background: rgba(212,168,67,0.08);
+    border-color: var(--gold);
+  }
+  .ff-box.top { grid-area: top; border-top: 2px solid var(--blue); }
+  .ff-box.bottom { grid-area: bottom; border-bottom: 2px solid var(--teal); }
+  .ff-box.left { grid-area: left; border-left: 2px solid var(--purple); }
+  .ff-box.right { grid-area: right; border-right: 2px solid var(--red); }
+  .ff-box .ff-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .ff-box.center .ff-title { color: var(--gold); }
+  .ff-box.top .ff-title { color: var(--blue); }
+  .ff-box.bottom .ff-title { color: var(--teal); }
+  .ff-box.left .ff-title { color: var(--purple); }
+  .ff-box.right .ff-title { color: var(--red); }
+  .ff-box .ff-text { font-size: 11px; color: var(--text2); }
+  .ff-arrow {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text3); font-size: 18px;
+  }
+
+  /* ── BUSINESS MODEL CANVAS ── */
+  .bmc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 8px; margin: 20px 0;
+  }
+  .bmc-cell {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 12px;
+    min-height: 90px;
+  }
+  .bmc-cell.vp {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    background: rgba(212,168,67,0.08);
+    border-color: rgba(212,168,67,0.4);
+  }
+  .bmc-cell.kp { grid-column: 1; grid-row: 1 / 3; }
+  .bmc-cell.ka { grid-column: 2; grid-row: 1; }
+  .bmc-cell.kr { grid-column: 2; grid-row: 2; }
+  .bmc-cell.cr { grid-column: 4; grid-row: 1; }
+  .bmc-cell.ch { grid-column: 4; grid-row: 2; }
+  .bmc-cell.cs { grid-column: 5; grid-row: 1 / 3; }
+  .bmc-cell.cost { grid-column: 1 / 4; grid-row: 3; background: rgba(224,92,92,0.06); border-color: rgba(224,92,92,0.2); }
+  .bmc-cell.rev { grid-column: 4 / 6; grid-row: 3; background: rgba(76,175,125,0.06); border-color: rgba(76,175,125,0.2); }
+  .bmc-label {
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 6px;
+  }
+  .bmc-cell.vp .bmc-label { color: var(--gold); }
+  .bmc-cell.cost .bmc-label { color: var(--red); }
+  .bmc-cell.rev .bmc-label { color: var(--green); }
+  .bmc-label:not(.bmc-cell.vp .bmc-label, .bmc-cell.cost .bmc-label, .bmc-cell.rev .bmc-label) { color: var(--blue); }
+  .bmc-content { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+  /* ── VALUE PROPOSITION CANVAS ── */
+  .vpc-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px; margin: 20px 0;
+  }
+  .vpc-side {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .vpc-side.left { border-top: 3px solid var(--teal); }
+  .vpc-side.right { border-top: 3px solid var(--gold); }
+  .vpc-title {
+    font-size: 14px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 16px; text-align: center;
+  }
+  .vpc-side.left .vpc-title { color: var(--teal); }
+  .vpc-side.right .vpc-title { color: var(--gold); }
+  .vpc-item {
+    background: var(--bg);
+    border-radius: 6px; padding: 12px 14px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--border);
+  }
+  .vpc-item.pain { border-left-color: var(--red); }
+  .vpc-item.gain { border-left-color: var(--green); }
+  .vpc-item.job { border-left-color: var(--blue); }
+  .vpc-item.pr { border-left-color: var(--teal); }
+  .vpc-item.gc { border-left-color: var(--gold); }
+  .vpc-item.ps { border-left-color: var(--purple); }
+  .vpc-item-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .vpc-item.pain .vpc-item-label { color: var(--red); }
+  .vpc-item.gain .vpc-item-label { color: var(--green); }
+  .vpc-item.job .vpc-item-label { color: var(--blue); }
+  .vpc-item.pr .vpc-item-label { color: var(--teal); }
+  .vpc-item.gc .vpc-item-label { color: var(--gold); }
+  .vpc-item.ps .vpc-item-label { color: var(--purple); }
+  .vpc-item p { font-size: 12px; color: var(--text2); }
+
+  /* ── COMPARISON TABLE ── */
+  .comp-table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0; font-size: 13px;
+  }
+  .comp-table th {
+    background: var(--bg3);
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 700;
+  }
+  .comp-table th:nth-child(1) { color: var(--text3); width: 25%; }
+  .comp-table th:nth-child(2) { color: var(--red); }
+  .comp-table th:nth-child(3) { color: var(--teal); }
+  .comp-table tr { border-bottom: 1px solid var(--border); }
+  .comp-table tr:hover { background: rgba(255,255,255,0.02); }
+  .comp-table td { padding: 11px 16px; color: var(--text2); }
+  .comp-table td:first-child { color: var(--text3); font-weight: 600; font-size: 12px; }
+  .comp-table td:nth-child(2) { background: rgba(224,92,92,0.03); }
+  .comp-table td:nth-child(3) { background: rgba(34,197,160,0.03); }
+
+  /* ── SEGMENTATION ── */
+  .seg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px; margin: 16px 0;
+  }
+  .seg-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .seg-icon { font-size: 24px; margin-bottom: 8px; }
+  .seg-card h4 { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .seg-card p { font-size: 11px; color: var(--text2); }
+  .seg-card.active { border-color: var(--gold); background: rgba(212,168,67,0.05); }
+
+  /* ── IT/IS/IM TABLE ── */
+  .it-table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0; font-size: 13px;
+  }
+  .it-table th {
+    background: var(--bg3);
+    padding: 10px 14px;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 700;
+    border: 1px solid var(--border);
+  }
+  .it-table th:nth-child(2) { color: var(--blue); }
+  .it-table th:nth-child(3) { color: var(--teal); }
+  .it-table th:nth-child(4) { color: var(--purple); }
+  .it-table td {
+    padding: 10px 14px; border: 1px solid var(--border);
+    color: var(--text2); font-size: 12px;
+  }
+  .it-table td:first-child { color: var(--text3); font-weight: 600; }
+  .it-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── CASE STUDY ── */
+  .case-study {
+    background: linear-gradient(135deg, rgba(212,168,67,0.06), rgba(59,158,222,0.04));
+    border: 1px solid rgba(212,168,67,0.3);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+  .case-tag {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .case-study h3 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+  .case-study p { font-size: 13px; color: var(--text2); margin-bottom: 10px; }
+  .case-insight {
+    background: rgba(0,0,0,0.3);
+    border-radius: 6px; padding: 14px;
+    font-size: 12px; color: var(--text2);
+    border-left: 3px solid var(--teal);
+  }
+  .case-insight strong { color: var(--teal); }
+
+  /* ── MNEMONICS ── */
+  .mnemonic-box {
+    background: linear-gradient(135deg, rgba(155,114,207,0.1), rgba(212,168,67,0.06));
+    border: 1px solid rgba(155,114,207,0.3);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .mnemonic-title {
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--purple); font-weight: 700; margin-bottom: 12px;
+  }
+  .mnemonic-word {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .mnemonic-letter {
+    text-align: center;
+  }
+  .letter {
+    font-family: 'Cinzel', serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .letter-mean {
+    font-size: 11px; color: var(--text2); margin-top: 4px;
+    max-width: 70px;
+  }
+
+  /* ── MCQS ── */
+  .mcq-section { margin: 24px 0; }
+  .mcq-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .mcq-num {
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--gold); font-weight: 700; margin-bottom: 8px;
+  }
+  .mcq-q { font-size: 14px; color: var(--white); margin-bottom: 14px; font-weight: 500; }
+  .mcq-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .mcq-opt {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px; color: var(--text2);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .mcq-opt:hover { border-color: var(--gold); color: var(--white); }
+  .mcq-opt .opt-letter {
+    font-weight: 700; color: var(--gold); min-width: 20px;
+  }
+  .mcq-opt.correct { background: rgba(76,175,125,0.12); border-color: var(--green); color: var(--green); }
+  .mcq-opt.incorrect { background: rgba(224,92,92,0.08); border-color: var(--red); color: var(--red); }
+  .mcq-answer {
+    display: none;
+    background: rgba(76,175,125,0.06);
+    border: 1px solid rgba(76,175,125,0.2);
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 12px; color: var(--text2);
+    margin-top: 10px;
+  }
+  .mcq-answer .ans-label { color: var(--green); font-weight: 700; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .reveal-btn {
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--gold); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reveal-btn:hover { background: rgba(212,168,67,0.2); }
+
+  /* ── RAPID REVISION ── */
+  .rr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px; margin: 16px 0;
+  }
+  .rr-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .rr-num {
+    font-family: 'Cinzel', serif;
+    font-size: 20px; color: var(--gold);
+    line-height: 1; min-width: 28px;
+  }
+  .rr-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+  .rr-text strong { color: var(--white); }
+
+  /* ── INFO BOXES ── */
+  .info-box {
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 14px 0;
+    font-size: 13px;
+    border-left: 3px solid;
+  }
+  .info-box.teal { background: rgba(34,197,160,0.06); border-color: var(--teal); color: var(--text2); }
+  .info-box.gold { background: rgba(212,168,67,0.06); border-color: var(--gold); color: var(--text2); }
+  .info-box.blue { background: rgba(59,158,222,0.06); border-color: var(--blue); color: var(--text2); }
+  .info-box.purple { background: rgba(155,114,207,0.06); border-color: var(--purple); color: var(--text2); }
+  .info-box strong { color: var(--white); }
+
+  /* ── QUOTE ── */
+  .blockquote {
+    border-left: 3px solid var(--gold);
+    margin: 20px 0;
+    padding: 14px 20px;
+    background: rgba(212,168,67,0.04);
+    font-style: italic; color: var(--text2);
+    font-size: 14px;
+  }
+  .blockquote cite { display: block; margin-top: 8px; font-style: normal; font-size: 12px; color: var(--gold); }
+
+  /* ── SCM TOOLS TABLE ── */
+  .tools-table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0; font-size: 13px;
+  }
+  .tools-table th {
+    background: var(--bg3);
+    padding: 10px 16px;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 700; color: var(--text3);
+    text-align: left; border-bottom: 2px solid var(--border);
+  }
+  .tools-table tr { border-bottom: 1px solid var(--border); }
+  .tools-table tr:hover { background: rgba(255,255,255,0.02); }
+  .tools-table td { padding: 11px 16px; color: var(--text2); }
+  .tools-table td:first-child { color: var(--teal); font-weight: 700; }
+
+  /* ── FLOWCHART ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 20px 0;
+  }
+  .flow-step {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 28px;
+    text-align: center;
+    font-size: 13px; font-weight: 600;
+    color: var(--white);
+    width: 100%; max-width: 400px;
+    transition: all 0.2s;
+  }
+  .flow-step:hover { border-color: var(--gold); color: var(--gold); }
+  .flow-step.s1 { border-top: 2px solid var(--blue); }
+  .flow-step.s2 { border-top: 2px solid var(--teal); }
+  .flow-step.s3 { border-top: 2px solid var(--gold); }
+  .flow-arrow { color: var(--text3); font-size: 20px; margin: 4px 0; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { padding: 30px 20px 24px; }
+    .nav-pills { padding: 10px 16px; }
+    .main { padding: 24px 16px 60px; }
+    .bmc-grid { display: block; }
+    .bmc-cell { margin-bottom: 6px; }
+    .five-forces { grid-template-areas: "top" "left" "center" "right" "bottom"; grid-template-columns: 1fr; }
+    .vpc-wrap { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-breadcrumb">CA Final Rank Hub › <span>Strategic Cost & Performance Management</span></div>
+  <div class="hero-tag">Chapter 1 · SCPM Paper</div>
+  <h1>An Introduction to<br><span>Strategic Cost Management</span></h1>
+  <div class="hero-meta">
+    <span><b>Section A</b> Managing Cost Strategically</span>
+    <span><b>Section B</b> Organisational Context</span>
+    <span><b>Section C</b> External Environment</span>
+    <span><b>Section D</b> IT in Strategic Context</span>
+    <span><b>Section E</b> Management Accountant as Leader</span>
+  </div>
+</div>
+
+<!-- NAV PILLS -->
+<div class="nav-pills">
+  <a href="#evolution">Evolution</a>
+  <a href="#pillars">3 Pillars</a>
+  <a href="#value-chain">Value Chain</a>
+  <a href="#strategic-pos">Strategic Positioning</a>
+  <a href="#competitive-adv">Competitive Advantage</a>
+  <a href="#bmc">Business Model Canvas</a>
+  <a href="#vpc">Value Proposition Canvas</a>
+  <a href="#porter">Porter's 5 Forces</a>
+  <a href="#segmentation">Segmentation</a>
+  <a href="#it-role">IT & IS</a>
+  <a href="#mgmt-acct">Mgmt Accountant</a>
+  <a href="#mcq">MCQs</a>
+  <a href="#rapid-rev">Rapid Revision</a>
+</div>
+
+<div class="main">
+
+  <!-- ══ SECTION A: MANAGING COST STRATEGICALLY ══ -->
+  <div id="evolution">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(212,168,67,0.1);">📈</div>
+      <h2>A. <span>Managing Cost Strategically</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="blockquote">
+      "It is not sufficient to simply reduce costs; instead, costs must be managed strategically."
+      <cite>— Cooper & Slagmulder (1998)</cite>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:var(--gold)">🔄 Evolution of Cost Concepts</div>
+      <div class="evolution-grid">
+        <div class="evo-step">
+          <div class="evo-num">Stage 1</div>
+          <div class="evo-label">Cost Ascertainment</div>
+          <div class="evo-desc">Recording & ascertaining costs only (Cost Accounting)</div>
+        </div>
+        <div class="evo-step">
+          <div class="evo-num">Stage 2</div>
+          <div class="evo-label">Cost Control</div>
+          <div class="evo-desc">Containment of cost — maintaining status quo</div>
+        </div>
+        <div class="evo-step">
+          <div class="evo-num">Stage 3</div>
+          <div class="evo-label">Traditional CM</div>
+          <div class="evo-desc">Cost reduction — cutting always = profit (flawed)</div>
+        </div>
+        <div class="evo-step current">
+          <div class="evo-num">Stage 4</div>
+          <div class="evo-label">Strategic CM</div>
+          <div class="evo-desc">Aligning costs to business strategy (modern approach)</div>
+        </div>
+      </div>
+      <div class="info-box blue">
+        <strong>Key Distinction:</strong> Cost Accounting = ascertainment. Management Accounting = control & management. SCM = strategic alignment.
+      </div>
+    </div>
+
+    <!-- Limitations -->
+    <div class="section-header" style="margin-top:32px">
+      <div class="section-icon" style="background:rgba(224,92,92,0.1);">⚠️</div>
+      <h2><span>Limitations of Traditional Cost Management</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="limit-grid">
+      <div class="limit-card">
+        <div class="lc-title">🚫 Ignores Competition</div>
+        <p>Only looks at internal quantitative factors; ignores market growth and customer requirements.</p>
+      </div>
+      <div class="limit-card">
+        <div class="lc-title">🚫 Inferior Quality Risk</div>
+        <p>Excessive focus on cost reduction. Broad cuts lead to inferior quality products/services.</p>
+      </div>
+      <div class="limit-card">
+        <div class="lc-title">🚫 Static Data</div>
+        <p>Relies on historical financial accounting data — ignores dynamic marketing & economics.</p>
+      </div>
+      <div class="limit-card">
+        <div class="lc-title">🚫 Quantitative Only</div>
+        <p>Reviews only quantitative variances; misses qualitative deviations and strategic signals.</p>
+      </div>
+      <div class="limit-card">
+        <div class="lc-title">🚫 Reactive Approach</div>
+        <p>Corrective rather than preventive — responds after problems occur, not before.</p>
+      </div>
+      <div class="limit-card">
+        <div class="lc-title">🚫 Short-Term Focus</div>
+        <p>Focuses on next year/quarter/month. Lacks long-term strategic perspective.</p>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div id="comparison">
+      <div class="section-header" style="margin-top:32px">
+        <div class="section-icon" style="background:rgba(34,197,160,0.1);">⚖️</div>
+        <h2>Traditional vs. <span>Strategic Cost Management</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="card" style="padding:0; overflow:hidden;">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Basis</th>
+              <th>❌ Traditional CM</th>
+              <th>✅ Strategic CM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Allocation of Cost</td><td>Volume / per unit produced</td><td>Relevant cost driver – ABC approach</td></tr>
+            <tr><td>Nature</td><td>Reactive (risk-averse)</td><td>Proactive and dynamic</td></tr>
+            <tr><td>Objective</td><td>Cost control and reduction</td><td>Product differentiation + cost containment</td></tr>
+            <tr><td>Risk Appetite</td><td>Risk-averse approach</td><td>Risk-taking; adapts to changing environment</td></tr>
+            <tr><td>Scope</td><td>Internal business environment only</td><td>Both internal and external environment</td></tr>
+            <tr><td>Term</td><td>Short-term focus</td><td>Long-span or perpetual focus</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /evolution -->
+
+  <!-- ══ THREE PILLARS ══ -->
+  <div id="pillars">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(155,114,207,0.1);">🏛️</div>
+      <h2>The <span>Three Pillars of SCM</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="pillars-wrap">
+      <div class="pillar-card p1">
+        <div class="pillar-icon">🔗</div>
+        <h3>Value Chain Analysis</h3>
+        <p>Sequential chain of activities delivering value to the customer. Identifies value-added vs non-value-added activities. Helps achieve cost leadership and differentiation.</p>
+      </div>
+      <div class="pillar-card p2">
+        <div class="pillar-icon">🎯</div>
+        <h3>Strategic Positioning Analysis</h3>
+        <p>Analysis of company's relative position within its strategic segment. Studies culture, stakeholders, capabilities, and environment. Leads to differentiation or cost leadership.</p>
+      </div>
+      <div class="pillar-card p3">
+        <div class="pillar-icon">⚙️</div>
+        <h3>Cost Driver Analysis</h3>
+        <p>Examination, quantification & explanation of monetary effects of cost drivers. Identifies structural and executional cost drivers to understand what truly drives costs.</p>
+      </div>
+    </div>
+    <div class="info-box gold">
+      <strong>Inter-relationship:</strong> Understanding the value chain → defines optimal strategic position → both together identify relevant cost drivers.
+    </div>
+
+    <!-- SCM Tools -->
+    <div class="card" style="margin-top:24px">
+      <div class="card-title" style="color:var(--teal)">🔧 Key Tools of Strategic Cost Management</div>
+      <table class="tools-table">
+        <thead>
+          <tr><th>Tool</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Activity Based Costing</td><td>Accuracy in allocating indirect costs to activities</td></tr>
+          <tr><td>Benchmarking</td><td>Determine CSFs; study best practices of other organisations</td></tr>
+          <tr><td>Competitive Advantage Analysis</td><td>Define strategies to excel over rivals</td></tr>
+          <tr><td>Just-in-Time (JIT)</td><td>Buy/produce materials only when needed — minimise inventory</td></tr>
+          <tr><td>Kaizen (Continuous Improvement)</td><td>Ongoing improvements in quality and critical success factors</td></tr>
+          <tr><td>Target Costing</td><td>Reverse-engineer cost from competitive market price to desired profit</td></tr>
+          <tr><td>Theory of Constraints</td><td>Improve rate of converting material into finished goods</td></tr>
+          <tr><td>Total Quality Management</td><td>Policies and procedures to meet customers' expectations</td></tr>
+          <tr><td>Value Chain Analysis</td><td>Add customer value, reduce costs, map business relationships</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ VALUE CHAIN ══ -->
+  <div id="value-chain">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(59,158,222,0.1);">⛓️</div>
+      <h2>Porter's <span>Generic Value Chain</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--purple)">🔷 Support Activities (Secondary)</div>
+      <div class="vc-support" style="margin-bottom:8px">
+        <div class="vc-supp">
+          <div class="title">Firm Infrastructure</div>
+          <div class="micro">Legal, GM, Finance, QA</div>
+        </div>
+        <div class="vc-supp">
+          <div class="title">HR Management</div>
+          <div class="micro">Hiring, training, culture</div>
+        </div>
+        <div class="vc-supp">
+          <div class="title">Technology Development</div>
+          <div class="micro">R&D, IT, cybersecurity</div>
+        </div>
+        <div class="vc-supp">
+          <div class="title">Procurement</div>
+          <div class="micro">Vendor selection, negotiations</div>
+        </div>
+      </div>
+      <div style="margin-bottom:6px"><span class="vc-label">🔵 Primary Activities</span></div>
+      <div style="display:flex; gap:0; margin-bottom:0;">
+        <div class="vc-box" style="flex:1">
+          <span class="num">I</span>
+          <div class="title">Inbound Logistics</div>
+          <div class="micro">Receiving, storing, handling raw materials. NOT procurement.</div>
+        </div>
+        <div class="vc-box" style="flex:1">
+          <span class="num">II</span>
+          <div class="title">Operations</div>
+          <div class="micro">Transform inputs to finished goods/services. Apple outsources — keeps design.</div>
+        </div>
+        <div class="vc-box" style="flex:1">
+          <span class="num">III</span>
+          <div class="title">Outbound Logistics</div>
+          <div class="micro">Storing, distributing & delivering finished goods. Where, how, when.</div>
+        </div>
+        <div class="vc-box" style="flex:1">
+          <span class="num">IV</span>
+          <div class="title">Marketing & Sales</div>
+          <div class="micro">4Ps → 7Ps → 4Cs. STP framework. Brand and promotion.</div>
+        </div>
+        <div class="vc-box" style="flex:1">
+          <span class="num">V</span>
+          <div class="title">After-Sales Service</div>
+          <div class="micro">Installation, training, repair. Critical for durables & automobiles.</div>
+        </div>
+        <div class="margin-bar">Margin</div>
+      </div>
+    </div>
+
+    <div class="info-box teal">
+      <strong>Margin =</strong> Value customer is willing to pay <strong>minus</strong> cost incurred by the firm. Increasing any support activity can benefit at least one primary activity.
+    </div>
+
+    <!-- VCA Steps -->
+    <div class="card" style="margin-top:20px">
+      <div class="card-title" style="color:var(--teal)">📋 Steps in Value Chain Analysis</div>
+      <div class="flow">
+        <div class="flow-step s1">Step 1 — Identify Value Chain Activities (Primary & Secondary)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step s2">Step 2 — Determine the Cost and Value of Each Activity</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step s3">Step 3 — Identify Opportunities for Competitive Advantage (Cost Leadership / Differentiation)</div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px">
+        <div class="info-box blue" style="margin:0">
+          <strong>Internal Cost Analysis:</strong><br>Identify firm's value-creating processes, map cost drivers, find cost advantages
+        </div>
+        <div class="info-box gold" style="margin:0">
+          <strong>Internal Differentiation Analysis:</strong><br>Identify customer value-creating processes; evaluate differentiation strategies
+        </div>
+        <div class="info-box purple" style="margin:0">
+          <strong>Vertical Linkage Analysis:</strong><br>Extend value chain across suppliers and buyers (extendable organisation)
+        </div>
+      </div>
+    </div>
+
+    <!-- Value Shop -->
+    <div class="case-study" style="margin-top:20px">
+      <div class="case-tag">📦 Concept Insight — Value Shop Model</div>
+      <h3>Value Shop Model (Alternative for Service Firms)</h3>
+      <p>Conceptualised by James D. Thompson (1967), named by Stabell & Fjeldstad (1998). For service firms, the value chain analogue is the <strong>Value Shop</strong> — a problem resolution model rather than a value-creation model.</p>
+      <div class="case-insight">
+        <strong>Primary Activities:</strong> Problem Finding & Acquisition → Problem Solving → Choice → Execution → Control → Evaluation (cyclic, not sequential)<br><br>
+        <strong>Examples:</strong> BCG, McKinsey, Deloitte, BFSI sector, telecom services.<br><br>
+        <strong>Value created by:</strong> More information than client, specialised analysis methods, strong expert professionals.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STRATEGIC POSITIONING ══ -->
+  <div id="strategic-pos">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(212,168,67,0.1);">🎯</div>
+      <h2>Strategic <span>Positioning Analysis</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--gold)">Strategic Positioning Analysis includes study of 4 dimensions:</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:4px">
+        <div class="info-box gold" style="margin:0">
+          <strong>I. Culture, Beliefs & Assumptions</strong><br>
+          → Vision and Values<br>
+          <span style="font-size:11px">Vision = aspiration statement; Values = guiding principles</span>
+        </div>
+        <div class="info-box blue" style="margin:0">
+          <strong>II. Stakeholders' Influence & Expectations</strong><br>
+          → Mission and Objectives<br>
+          <span style="font-size:11px">Use Mendelow's Matrix: High Power + High Interest = Key Players</span>
+        </div>
+        <div class="info-box teal" style="margin:0">
+          <strong>III. Task Environment (Capabilities)</strong><br>
+          → Strengths and Weaknesses<br>
+          <span style="font-size:11px">Resources and core competences; microenvironment analysis</span>
+        </div>
+        <div class="info-box purple" style="margin:0">
+          <strong>IV. Macro Environment</strong><br>
+          → Opportunities and Threats<br>
+          <span style="font-size:11px">Competitors, markets, regulations, PESTEL/STEEPLE factors</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mendelow's Matrix -->
+    <div class="card" style="margin-top:16px">
+      <div class="card-title" style="color:var(--blue)">🔲 Mendelow's Matrix — Stakeholder Classification</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:4px">
+        <div style="background:rgba(212,168,67,0.1); border:1px solid rgba(212,168,67,0.3); border-radius:6px; padding:14px">
+          <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--gold); margin-bottom:6px">HIGH POWER + HIGH INTEREST → Manage Closely / Key Players</div>
+          <div style="font-size:12px; color:var(--text2)">Most important group. Actively engage; keep them updated and empowered to steer direction.</div>
+        </div>
+        <div style="background:rgba(59,158,222,0.08); border:1px solid rgba(59,158,222,0.2); border-radius:6px; padding:14px">
+          <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--blue); margin-bottom:6px">HIGH POWER + LOW INTEREST → Keep Satisfied</div>
+          <div style="font-size:12px; color:var(--text2)">Potentially influential. Keep satisfied so they don't gain interest and exercise power.</div>
+        </div>
+        <div style="background:rgba(34,197,160,0.06); border:1px solid rgba(34,197,160,0.2); border-radius:6px; padding:14px">
+          <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--teal); margin-bottom:6px">LOW POWER + HIGH INTEREST → Keep Informed</div>
+          <div style="font-size:12px; color:var(--text2)">Little individual power but could join forces with powerful groups. Keep them informed.</div>
+        </div>
+        <div style="background:var(--bg3); border:1px solid var(--border); border-radius:6px; padding:14px">
+          <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--text3); margin-bottom:6px">LOW POWER + LOW INTEREST → Monitor</div>
+          <div style="font-size:12px; color:var(--text2)">Marginal players; unlikely to resist. Minimum effort required.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tools for SPA -->
+    <div class="info-box gold" style="margin-top:16px">
+      <strong>Tools for Strategic Position Analysis:</strong><br>
+      External: SWOT, PESTEL, Porter's Five Forces, Porter's Diamond<br>
+      Internal: Value Chain, CSFs & Core Competencies, Product Lifecycle, McKinsey 7S
+    </div>
+
+    <!-- Cost Driver Analysis -->
+    <div style="margin-top:32px" id="cost-drivers">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(155,114,207,0.1);">⚙️</div>
+        <h2>Cost Driver <span>Analysis</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="card">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+          <div>
+            <div class="card-title" style="color:var(--teal)">🏗️ Structural Cost Drivers</div>
+            <div class="info-box teal" style="margin:0">
+              <strong>Strategic choices</strong> about economic structure. Scale, scope, experience, technology, complexity.<br><br>
+              <em>Note: More is NOT necessarily better for structural drivers.</em>
+            </div>
+            <div style="font-size:12px; color:var(--text2); margin-top:10px; padding-left:4px">
+              Examples: plant construction (scale), complexity (# product lines), process selection (technology used)
+            </div>
+          </div>
+          <div>
+            <div class="card-title" style="color:var(--gold)">⚡ Executional Cost Drivers</div>
+            <div class="info-box gold" style="margin:0">
+              <strong>Execution of business activities.</strong> Employee involvement, TQM, capacity utilization, plant efficiency, product configuration, supplier linkages.<br><br>
+              <em>Note: Higher is better for executional drivers.</em>
+            </div>
+            <div style="font-size:12px; color:var(--text2); margin-top:10px; padding-left:4px">
+              Examples: employee utilization (degree of involvement), quality service provision (TQM approach)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ COMPETITIVE ADVANTAGE ══ -->
+  <div id="competitive-adv">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(34,197,160,0.1);">🏆</div>
+      <h2>B. Gaining <span>Competitive Advantage</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px">
+      <div class="card">
+        <div class="card-title" style="color:var(--gold)">🌟 Differentiation Strategy</div>
+        <div class="info-box gold" style="margin-bottom:12px">
+          Deliver <strong>distinctive value</strong> to command a premium price. Example: Apple.
+        </div>
+        <div style="font-size:13px; color:var(--text2)">
+          <strong style="color:var(--white)">Sources:</strong> Quality (design, performance), Innovation, Customer relations, After-sales, Wide product range<br><br>
+          <strong style="color:var(--white)">Benefits:</strong> Huge margins at premium price OR build market share at lower-than-premium price
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--teal)">💰 Cost Leadership Strategy</div>
+        <div class="info-box teal" style="margin-bottom:12px">
+          Become the <strong>lowest cost producer</strong> in the industry while maintaining acceptable quality.
+        </div>
+        <div style="font-size:13px; color:var(--text2)">
+          <strong style="color:var(--white)">Sources:</strong> Cost-effective inputs, process innovation/re-engineering, low-cost distribution, learning curve, economies of scale<br><br>
+          <strong style="color:var(--white)">Ways:</strong> Reducing cost of individual value chain activities <em>or</em> Reconfiguring the value chain
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box purple">
+      <strong>⚠️ Porter's "Kiss of Death":</strong> Companies that try to be all things to all customers can get "stuck in the middle" — competing on neither cost nor differentiation effectively. Avoid this strategic mistake.
+    </div>
+
+    <!-- Strategy vs Cost Emphasis Table -->
+    <div class="card" style="margin-top:20px">
+      <div class="card-title" style="color:var(--blue)">📊 Strategy & Cost Management Emphasis Comparison</div>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Aspects</th>
+            <th>Product Differentiation</th>
+            <th>Cost Leadership</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Standard costs in assessing performance</td><td>Not very important</td><td>Very important</td></tr>
+          <tr><td>Flexible budgeting for cost control</td><td>Moderate to low</td><td>High to very high</td></tr>
+          <tr><td>Importance of meeting budgets</td><td>Moderate to low</td><td>High to very high</td></tr>
+          <tr><td>Marketing cost analysis</td><td>Critical to success</td><td>Relatively less important</td></tr>
+          <tr><td>Product cost as input to pricing</td><td>Low importance</td><td>High importance</td></tr>
+          <tr><td>Competitor cost analysis</td><td>Low importance</td><td>High importance</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ BUSINESS MODEL CANVAS ══ -->
+  <div id="bmc">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(212,168,67,0.1);">📋</div>
+      <h2>Osterwalder's <span>Business Model Canvas</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="info-box teal">
+      <strong>Nine-element canvas</strong> connecting 4 cost elements (left) through <strong>Value Proposition</strong> (centre) to 4 revenue elements (right). Proposed by Alexander Osterwalder (May 2013, HBR).
+    </div>
+
+    <div class="bmc-grid" style="margin-top:16px">
+      <div class="bmc-cell kp">
+        <div class="bmc-label" style="color:var(--purple)">8. Key Partners</div>
+        <div class="bmc-content">Who are our partners/key suppliers? What resources/activities do they provide?</div>
+      </div>
+      <div class="bmc-cell ka">
+        <div class="bmc-label" style="color:var(--blue)">6. Key Activities</div>
+        <div class="bmc-content">Uniquely strategic things the business does to deliver its proposition</div>
+      </div>
+      <div class="bmc-cell vp">
+        <div class="bmc-label">2. Value Proposition</div>
+        <div class="bmc-content" style="color:var(--gold2)">What's compelling about the proposition? Why do customers buy/use? Solves problems or satisfies needs.</div>
+      </div>
+      <div class="bmc-cell cr">
+        <div class="bmc-label" style="color:var(--teal)">4. Customer Relationship</div>
+        <div class="bmc-content">How do we get, keep & grow customers? Push vs Pull mode.</div>
+      </div>
+      <div class="bmc-cell cs">
+        <div class="bmc-label" style="color:var(--green)">1. Customer Segments</div>
+        <div class="bmc-content">Who are the customers? What do they think? See? Feel? Do?</div>
+      </div>
+      <div class="bmc-cell kr">
+        <div class="bmc-label" style="color:var(--orange)">7. Key Resources</div>
+        <div class="bmc-content">Unique strategic assets (man, material, machine, method, money)</div>
+      </div>
+      <div class="bmc-cell ch">
+        <div class="bmc-label" style="color:var(--blue)">3. Channels</div>
+        <div class="bmc-content">Physical or digital channels to deliver products/services</div>
+      </div>
+      <div class="bmc-cell cost">
+        <div class="bmc-label">9. Cost Structure</div>
+        <div class="bmc-content">Major cost drivers? Most expensive resources? Linked to revenue streams how?</div>
+      </div>
+      <div class="bmc-cell rev">
+        <div class="bmc-label">5. Revenue Streams</div>
+        <div class="bmc-content">Direct sale, transaction-based, freemium, license, subscription. How does business earn from its value proposition?</div>
+      </div>
+    </div>
+
+    <div class="info-box gold" style="margin-top:12px">
+      <strong>Elements 1, 2, 3, 4</strong> = Customer focus | <strong>Elements 6, 7, 8</strong> = Infrastructure | <strong>Elements 5, 9</strong> = Financial viability
+    </div>
+
+    <!-- Business Model History -->
+    <div class="card" style="margin-top:16px">
+      <div class="card-title" style="color:var(--teal)">📜 Evolution of Business Model Concept</div>
+      <div style="display:flex; flex-direction:column; gap:10px">
+        <div class="info-box blue" style="margin:0"><strong>Margretta:</strong> 2 components — Producing something + Selling something</div>
+        <div class="info-box teal" style="margin:0"><strong>Johnson, Christensen & Kaggerman (2008):</strong> 3 components — Customer value proposition + Profit formula + Key resources & processes</div>
+        <div class="info-box gold" style="margin:0"><strong>Osterwalder (May 2013):</strong> 9-element Business Model Canvas — the standard today</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ VALUE PROPOSITION CANVAS ══ -->
+  <div id="vpc">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(155,114,207,0.1);">🎨</div>
+      <h2>Value <span>Proposition Canvas</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="info-box purple">
+      The VPC is a <strong>plugin for the Business Model Canvas</strong> — zooms into the Customer Segment and Value Proposition elements. Helps design, test, build and manage great customer value propositions.
+    </div>
+
+    <div class="vpc-wrap" style="margin-top:16px">
+      <div class="vpc-side left">
+        <div class="vpc-title">💚 Value Map (Business Side)</div>
+        <div class="vpc-item ps">
+          <div class="vpc-item-label">Products & Services</div>
+          <p>Bundle of products/services offered to help customer get a functional, social or emotional job done</p>
+        </div>
+        <div class="vpc-item pr">
+          <div class="vpc-item-label">Pain Relievers</div>
+          <p>How products/services eliminate or reduce customer pains before, during, after job completion</p>
+        </div>
+        <div class="vpc-item gc">
+          <div class="vpc-item-label">Gain Creators</div>
+          <p>How products/services create customer gains — benefits and outcomes they desire</p>
+        </div>
+      </div>
+      <div class="vpc-side right">
+        <div class="vpc-title">🟡 Customer Profile (Customer Side)</div>
+        <div class="vpc-item job">
+          <div class="vpc-item-label">Customer Jobs</div>
+          <p>Important issues customers try to solve — functional, social, or emotional/personal jobs</p>
+        </div>
+        <div class="vpc-item pain">
+          <div class="vpc-item-label">Pains</div>
+          <p>Anything that annoys the customer before/during/after getting a job done — costs, risks, negative emotions</p>
+        </div>
+        <div class="vpc-item gain">
+          <div class="vpc-item-label">Gains</div>
+          <p>Outcomes/benefits customers require, expect, or desire — functional utilities, social gains, positive emotions, cost savings</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px">
+      <div class="info-box teal">
+        <strong>Problem-Solution Fit:</strong> Features of value proposition map <em>perfectly match</em> the customer segment profile.
+      </div>
+      <div class="info-box gold">
+        <strong>Product-Market Fit:</strong> When the market <em>validates</em> this match and the value proposition gets traction with real customers.
+      </div>
+    </div>
+
+    <!-- VPC Mnemonics -->
+    <div class="mnemonic-box" style="margin-top:20px">
+      <div class="mnemonic-title">🧠 Mnemonic — Value Creation Elements (Pain Reliever / Gain Creator)</div>
+      <div class="mnemonic-word">
+        <div class="mnemonic-letter"><span class="letter">N</span><div class="letter-mean">Newness</div></div>
+        <div class="mnemonic-letter"><span class="letter">P</span><div class="letter-mean">Performance</div></div>
+        <div class="mnemonic-letter"><span class="letter">C</span><div class="letter-mean">Customization</div></div>
+        <div class="mnemonic-letter"><span class="letter">D</span><div class="letter-mean">Design</div></div>
+        <div class="mnemonic-letter"><span class="letter">B</span><div class="letter-mean">Brand/Status</div></div>
+        <div class="mnemonic-letter"><span class="letter">P</span><div class="letter-mean">Price</div></div>
+        <div class="mnemonic-letter"><span class="letter">C</span><div class="letter-mean">Cost Reduction</div></div>
+        <div class="mnemonic-letter"><span class="letter">R</span><div class="letter-mean">Risk Reduction</div></div>
+        <div class="mnemonic-letter"><span class="letter">A</span><div class="letter-mean">Accessibility</div></div>
+        <div class="mnemonic-letter"><span class="letter">C</span><div class="letter-mean">Convenience</div></div>
+      </div>
+      <div style="font-size:13px; color:var(--text2)"><strong style="color:var(--purple)">Remember:</strong> <em>"Nice People Create Delightful Brands, Pricing Creates Real Accessible Comfort"</em></div>
+    </div>
+  </div>
+
+  <!-- ══ EXTERNAL ENVIRONMENT ══ -->
+  <div id="porter">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(224,92,92,0.1);">🌐</div>
+      <h2>C. External Environment — <span>Porter's Five Forces</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="info-box gold">
+      <strong>Framework evolution:</strong> PEST → PESTEL (+ Environmental + Legal) → STEEPLE (+ Ethical). Industry analysis using Porter's Five Forces assesses <strong>intensity of competition and profitability potential</strong>. Higher intensity = lower profitability.
+    </div>
+
+    <div class="five-forces" style="margin-top:20px">
+      <div class="ff-box top">
+        <div class="ff-title">Threat of New Entrants</div>
+        <div class="ff-text">Depends on barriers to entry: economies of scale, capital, brand loyalty, gov't policy, switching costs</div>
+      </div>
+      <div class="ff-box left">
+        <div class="ff-title">Bargaining Power of Suppliers</div>
+        <div class="ff-text">High when few suppliers, unique products, no substitutes, high switching costs</div>
+      </div>
+      <div class="ff-box center">
+        <div class="ff-title">Industry Rivalry</div>
+        <div class="ff-text">Action-reaction dynamic. Stiffer when: more firms, homogeneous products, high fixed costs, high exit barriers</div>
+      </div>
+      <div class="ff-box right">
+        <div class="ff-title">Bargaining Power of Buyers</div>
+        <div class="ff-text">High when: few buyers, large volumes, standardised products, low switching costs, full information</div>
+      </div>
+      <div class="ff-box bottom">
+        <div class="ff-title">Threat of Substitutes</div>
+        <div class="ff-text">High when substitute is perfect and cheaper. Can be from different segments or industries</div>
+      </div>
+    </div>
+
+    <!-- Entry/Exit Barriers Matrix -->
+    <div class="card" style="margin-top:20px">
+      <div class="card-title" style="color:var(--blue)">🔲 Barriers & Profitability Matrix</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; max-width:500px">
+        <div style="background:rgba(76,175,125,0.08); border:1px solid rgba(76,175,125,0.2); border-radius:6px; padding:12px; text-align:center">
+          <div style="font-size:11px; color:var(--text3); margin-bottom:4px">High Entry + Low Exit</div>
+          <div style="font-size:14px; font-weight:700; color:var(--green)">High, Stable Returns</div>
+          <div style="font-size:11px; color:var(--text3); margin-top:4px">Best scenario</div>
+        </div>
+        <div style="background:rgba(224,92,92,0.06); border:1px solid rgba(224,92,92,0.2); border-radius:6px; padding:12px; text-align:center">
+          <div style="font-size:11px; color:var(--text3); margin-bottom:4px">High Entry + High Exit</div>
+          <div style="font-size:14px; font-weight:700; color:var(--orange)">High, Risky Returns</div>
+          <div style="font-size:11px; color:var(--text3); margin-top:4px">High reward, high risk</div>
+        </div>
+        <div style="background:rgba(59,158,222,0.06); border:1px solid rgba(59,158,222,0.2); border-radius:6px; padding:12px; text-align:center">
+          <div style="font-size:11px; color:var(--text3); margin-bottom:4px">Low Entry + Low Exit</div>
+          <div style="font-size:14px; font-weight:700; color:var(--blue)">Low, Stable Returns</div>
+          <div style="font-size:11px; color:var(--text3); margin-top:4px">Predictable but low</div>
+        </div>
+        <div style="background:rgba(155,114,207,0.06); border:1px solid rgba(155,114,207,0.2); border-radius:6px; padding:12px; text-align:center">
+          <div style="font-size:11px; color:var(--text3); margin-bottom:4px">Low Entry + High Exit</div>
+          <div style="font-size:14px; font-weight:700; color:var(--red)">Low, Risky Returns</div>
+          <div style="font-size:11px; color:var(--text3); margin-top:4px">Worst scenario</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SEGMENTATION ══ -->
+  <div id="segmentation">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(76,175,125,0.1);">🎯</div>
+      <h2>Understanding <span>Customers & Market Segmentation</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="info-box teal">
+      <strong>Criteria for a valid Segment:</strong> Homogeneous internally + Heterogeneous externally + Clearly identifiable + Reasonable size + Responsive to marketing offerings
+    </div>
+
+    <div class="seg-grid" style="margin-top:16px">
+      <div class="seg-card">
+        <div class="seg-icon">📦</div>
+        <h4>Product Segmentation</h4>
+        <p>Based on products/features. E.g., Compact/Sedan/SUV; Fuel vs Electric vehicles</p>
+      </div>
+      <div class="seg-card active">
+        <div class="seg-icon">👥</div>
+        <h4>Demographic Segmentation</h4>
+        <p>Age, Gender, Family situation, Education, Ethnicity. E.g., Kids/Men/Women apparel lines</p>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">🧠</div>
+        <h4>Psychographic Segmentation</h4>
+        <p>Personality, values, lifestyle, beliefs. E.g., Economy/Business/First class airline seats</p>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">🛒</div>
+        <h4>Behavioural Segmentation</h4>
+        <p>Purchasing & spending habits, brand interactions. E.g., Flipkart Plus members</p>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">📍</div>
+        <h4>Geographic Segmentation</h4>
+        <p>ZIP code, city, country, climate, urban/rural. E.g., Regional product variations</p>
+      </div>
+    </div>
+
+    <!-- Basis of Competition & KSFs -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px">
+      <div class="card">
+        <div class="card-title" style="color:var(--gold)">⚔️ Basis of Competition</div>
+        <div style="font-size:13px; color:var(--text2)">
+          The reason why customers choose a particular business over its competitor. Can be product, feature, function, style, or availability.<br><br>
+          <strong style="color:var(--white)">Key questions:</strong><br>
+          • What drives demand in the industry?<br>
+          • How does the customer choose (price, feature, quality)?<br>
+          • How is price determined in the industry?<br>
+          • What are the main cost drivers?<br>
+          • What are current & potential risks?
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--teal)">🔑 Industry Key Success Factors (KSFs/CSFs)</div>
+        <div style="font-size:13px; color:var(--text2)">
+          Factors critical to success in generating and sustaining competitive advantage. Articulates what the firm MUST do well.<br><br>
+          <strong style="color:var(--white)">KPIs are attached to each CSF</strong> to measure performance.<br><br>
+          CSFs are part of strategic planning (with strategic goals and strategic scope). Under dynamic environments, <strong style="color:var(--teal)">CSFs change over time</strong> — firms must periodically re-assess.
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Competencies -->
+    <div class="card" style="margin-top:20px">
+      <div class="card-title" style="color:var(--purple)">💎 Core Competencies Analysis (Prahalad & Hamel, 1990)</div>
+      <div class="info-box purple" style="margin-bottom:14px">
+        Core Competences = Things a company can do <strong>uniquely well</strong> that no one else can copy quickly enough to affect competition.
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px">
+        <div class="info-box teal" style="margin:0">
+          <strong>Relevance</strong><br>Competence must strongly influence customers to choose your product
+        </div>
+        <div class="info-box gold" style="margin:0">
+          <strong>Difficulty of Imitation</strong><br>Hard to copy, allowing sustained competitive position
+        </div>
+        <div class="info-box blue" style="margin:0">
+          <strong>Breadth of Application</strong><br>Opens up a good number of potential markets (not just niche)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ IT IN STRATEGIC CONTEXT ══ -->
+  <div id="it-role">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(59,158,222,0.1);">💻</div>
+      <h2>D. Information Technology — <span>The Strategic Context</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="info-box blue">
+      <strong>Data is the new oil.</strong> IT + IS + IM — three interconnected but distinct concepts. Together they have the potential to transform business, counter Porter's Five Forces, and revamp the value chain.
+    </div>
+
+    <!-- IT/IS/IM Table -->
+    <div class="card" style="margin-top:16px">
+      <div class="card-title" style="color:var(--blue)">📊 IT vs IS vs IM Strategy — Earl's Framework (1989)</div>
+      <table class="it-table">
+        <thead>
+          <tr><th>Basis</th><th>IS Strategy</th><th>IT Strategy</th><th>IM Strategy</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Resolve (Scope)</td><td>What</td><td>How</td><td>Where</td></tr>
+          <tr><td>Driven Force</td><td>Business Driven</td><td>Technology Focused</td><td>Management Driven</td></tr>
+          <tr><td>Directional</td><td>Top-Down</td><td>Bottom-up</td><td>Multi-directional</td></tr>
+          <tr><td>Orientation</td><td>Demand Oriented</td><td>Supply Oriented</td><td>Relationship Oriented</td></tr>
+          <tr><td>Organisational Level</td><td>Division/SBU/Function</td><td>Activity based</td><td>Organisation wide</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- IT & Porter's Five Forces -->
+    <div class="card" style="margin-top:16px">
+      <div class="card-title" style="color:var(--teal)">🔥 IT/IS Impact on Porter's Five Forces</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+        <div class="info-box blue" style="margin:0">
+          <strong>Threat of New Entrants:</strong><br>
+          <em>Existing players:</em> Sophisticated IT creates expensive-to-replicate barriers<br>
+          <em>New entrants:</em> Use IT to break down barriers (e.g., internet banking replacing branch networks)
+        </div>
+        <div class="info-box purple" style="margin:0">
+          <strong>Supplier Bargaining Power:</strong><br>
+          IT enables e-procurement, price comparison databases, supply chain integration with ERP — reduces supplier power
+        </div>
+        <div class="info-box teal" style="margin:0">
+          <strong>Buyer Bargaining Power:</strong><br>
+          Customer Data Warehousing & Mining for targeted marketing; IT-based loyalty programmes to "lock in" customers
+        </div>
+        <div class="info-box gold" style="margin:0">
+          <strong>Threat of Substitutes:</strong><br>
+          IT itself is a substitute (Kindle → books, laser printers → dot-matrix). Counter via patents, CAD/CAM for faster product development
+        </div>
+      </div>
+      <div class="info-box red" style="background:rgba(224,92,92,0.06); border-color:var(--red); color:var(--text2); margin-top:10px">
+        <strong style="color:var(--red)">Competitive Rivalry:</strong> Use JIT, ERP, MRP for cost leadership; collaborative ventures; IT for customer relationship building to reduce rival threats
+      </div>
+    </div>
+
+    <!-- IT & Value Chain -->
+    <div class="card" style="margin-top:16px">
+      <div class="card-title" style="color:var(--gold)">⛓️ IT/IS Impact on the Value Chain</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:14px">
+        <div class="info-box blue" style="margin:0"><strong>Inbound Logistics:</strong> Barcode systems, virtual warehouses, RFID tracking, MRP/ERP, JIT stock control</div>
+        <div class="info-box teal" style="margin:0"><strong>Operations:</strong> CAD/CAM, CIM, robots, automated guided vehicles, Edu-tech platforms, ATMs</div>
+        <div class="info-box gold" style="margin:0"><strong>Outbound Logistics:</strong> Vehicle scheduling, automated warehousing, RFID (UPS case study)</div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+        <div class="info-box purple" style="margin:0"><strong>Marketing & Sales:</strong> CRM, digital/social/viral marketing, customer segmentation databases (Nike analytics case)</div>
+        <div class="info-box green" style="background:rgba(76,175,125,0.06); border-color:var(--green); margin:0"><strong>After-Sales Service:</strong> IoT-enabled remote service, ERP-integrated support, scheduling systems</div>
+      </div>
+    </div>
+
+    <!-- Industry Case Study -->
+    <div class="case-study" style="margin-top:20px">
+      <div class="case-tag">🔍 Real-World Case Study — Nokia's Fall & the Lesson of Changing KSFs</div>
+      <h3>Nokia: When Critical Success Factors Changed</h3>
+      <p>Nokia was once the global market leader in mobile phones when KSFs were reliability and efficient distribution networks. When smartphones launched, the KSFs shifted to R&D capability, screen size, camera megapixels, app ecosystem, and internet connectivity.</p>
+      <div class="case-insight">
+        <strong>Lesson:</strong> Nokia failed to recognise and adapt to changing CSFs. Under a dynamic business environment, CSFs may change — firms must periodically re-assess them. The same remote factor (technology shift) brought opportunity to emerging brands while threatening the incumbent market leader.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MANAGEMENT ACCOUNTANT AS LEADER ══ -->
+  <div id="mgmt-acct">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(212,168,67,0.1);">👔</div>
+      <h2>E. Management Accountant <span>as a Leader</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="blockquote">
+      "If accounting is truly a language of business, then management accountant is indeed a poet, who appreciates value and numbers."
+    </div>
+
+    <!-- Transforming Roles -->
+    <div class="card">
+      <div class="card-title" style="color:var(--gold)">📊 Transformation of the Management Accountant's Role</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+        <div>
+          <div style="font-size:12px; font-weight:700; color:var(--text3); letter-spacing:1px; text-transform:uppercase; margin-bottom:10px">Traditional Roles</div>
+          <div style="font-size:13px; color:var(--text2); display:flex; flex-direction:column; gap:6px">
+            <div style="padding:8px; background:var(--bg3); border-radius:4px; border-left:2px solid var(--text3)">1. Stewardship Accounting</div>
+            <div style="padding:8px; background:var(--bg3); border-radius:4px; border-left:2px solid var(--text3)">2. Long-term & Short-term Planning</div>
+            <div style="padding:8px; background:var(--bg3); border-radius:4px; border-left:2px solid var(--text3)">3. Developing MIS</div>
+            <div style="padding:8px; background:var(--bg3); border-radius:4px; border-left:2px solid var(--text3)">4. Maintaining Optimum Capital Structure</div>
+            <div style="padding:8px; background:var(--bg3); border-radius:4px; border-left:2px solid var(--text3)">5. Participating in Management Process</div>
+            <div style="padding:8px; background:var(--bg3); border-radius:4px; border-left:2px solid var(--text3)">6. Providing Ease in Control</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px; font-weight:700; color:var(--gold); letter-spacing:1px; text-transform:uppercase; margin-bottom:10px">Modern / Extended Roles</div>
+          <div style="font-size:13px; color:var(--text2); display:flex; flex-direction:column; gap:6px">
+            <div style="padding:8px; background:rgba(212,168,67,0.06); border-radius:4px; border-left:2px solid var(--gold)">7. Analysis — New insights from financial & non-financial data</div>
+            <div style="padding:8px; background:rgba(212,168,67,0.06); border-radius:4px; border-left:2px solid var(--gold)">8. Planning — Building informed long-term strategies</div>
+            <div style="padding:8px; background:rgba(212,168,67,0.06); border-radius:4px; border-left:2px solid var(--gold)">9. Innovation — Technology advancement & Industry 4.0 / 5.0</div>
+            <div style="padding:8px; background:rgba(212,168,67,0.06); border-radius:4px; border-left:2px solid var(--gold)">10. Leadership — From planning to execution</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three Dimensions -->
+    <div class="pillars-wrap" style="margin-top:20px">
+      <div class="pillar-card p1">
+        <div class="pillar-icon">📢</div>
+        <h3>Communication</h3>
+        <p>Two-way process. Vertical/horizontal/diagonal. Communicating strategy, vision & values reduces resistance. MBWA technique — randomly visit workplace to engage employees informally.</p>
+      </div>
+      <div class="pillar-card p2">
+        <div class="pillar-icon">🧩</div>
+        <h3>Decision Making</h3>
+        <p>Rational criteria: objective, fully informed, conscious, explicit, deliberate, consistent, logical, goal-oriented. Part of strategy development at every step.</p>
+      </div>
+      <div class="pillar-card p3">
+        <div class="pillar-icon">⚖️</div>
+        <h3>Business Ethics</h3>
+        <p>Socio-economic approach: balance economic motives and social costs. Business orientation shifted from shareholder to stakeholder. Ethics must reflect organisational values.</p>
+      </div>
+    </div>
+
+    <!-- Leader vs Manager -->
+    <div class="card" style="margin-top:20px">
+      <div class="card-title" style="color:var(--teal)">👑 Leader vs. Manager — Key Distinctions</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+        <div class="info-box teal" style="margin:0; font-size:12px">
+          Leaders create <strong>vision</strong>; managers create goals<br>
+          Leaders are <strong>change agents</strong>; managers maintain status quo<br>
+          Leaders are <strong>unique</strong>; managers copy<br>
+          Leaders <strong>take risks</strong>; managers control risk
+        </div>
+        <div class="info-box gold" style="margin:0; font-size:12px">
+          Leaders are in it for <strong>long haul</strong>; managers think short-term<br>
+          Leaders <strong>grow personally</strong>; managers rely on proven skills<br>
+          Leaders <strong>build relationships</strong>; managers build systems<br>
+          Leaders <strong>coach</strong>; managers direct
+        </div>
+      </div>
+    </div>
+
+    <!-- MBWA -->
+    <div class="case-study">
+      <div class="case-tag">💡 Practical Insight — MBWA</div>
+      <h3>Management by Walking/Wandering Around (MBWA)</h3>
+      <p>Managers wander randomly through workplace to check on employees, equipment, and work status. Random sampling of events and discussions improves morale, productivity, and TQM.</p>
+      <div class="case-insight">
+        <strong>Origin:</strong> Traced to executives at Hewlett-Packard (1970s). Similar to Japan's <strong>Gemba Walk</strong> method developed at Toyota.<br>
+        <strong>Referenced by:</strong> Tom Peters & Robert H. Waterman in "In Search of Excellence" (1982).
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MNEMONICS ══ -->
+  <div>
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(155,114,207,0.1);">🧠</div>
+      <h2>Memory <span>Mnemonics</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="mnemonic-box">
+      <div class="mnemonic-title">SCM — Three Pillars</div>
+      <div class="mnemonic-word">
+        <div class="mnemonic-letter"><span class="letter">V</span><div class="letter-mean">Value Chain Analysis</div></div>
+        <div class="mnemonic-letter"><span class="letter">S</span><div class="letter-mean">Strategic Positioning</div></div>
+        <div class="mnemonic-letter"><span class="letter">C</span><div class="letter-mean">Cost Driver Analysis</div></div>
+      </div>
+      <div style="font-size:13px; color:var(--text2)"><strong style="color:var(--purple)">VSC — "Very Smart Companies use SCM"</strong></div>
+    </div>
+
+    <div class="mnemonic-box" style="margin-top:12px">
+      <div class="mnemonic-title">Porter's Five Forces — "BRASS"</div>
+      <div class="mnemonic-word">
+        <div class="mnemonic-letter"><span class="letter">B</span><div class="letter-mean">Buyers' Power</div></div>
+        <div class="mnemonic-letter"><span class="letter">R</span><div class="letter-mean">Rivalry (existing)</div></div>
+        <div class="mnemonic-letter"><span class="letter">A</span><div class="letter-mean">Alternative (Substitutes)</div></div>
+        <div class="mnemonic-letter"><span class="letter">S</span><div class="letter-mean">Suppliers' Power</div></div>
+        <div class="mnemonic-letter"><span class="letter">S</span><div class="letter-mean">Supplemental Entrants (New)</div></div>
+      </div>
+    </div>
+
+    <div class="mnemonic-box" style="margin-top:12px">
+      <div class="mnemonic-title">Value Chain Primary Activities — "I O O M A"</div>
+      <div class="mnemonic-word">
+        <div class="mnemonic-letter"><span class="letter">I</span><div class="letter-mean">Inbound Logistics</div></div>
+        <div class="mnemonic-letter"><span class="letter">O</span><div class="letter-mean">Operations</div></div>
+        <div class="mnemonic-letter"><span class="letter">O</span><div class="letter-mean">Outbound Logistics</div></div>
+        <div class="mnemonic-letter"><span class="letter">M</span><div class="letter-mean">Marketing & Sales</div></div>
+        <div class="mnemonic-letter"><span class="letter">A</span><div class="letter-mean">After-Sales Service</div></div>
+      </div>
+      <div style="font-size:13px; color:var(--text2)"><strong style="color:var(--purple)">"I Often Order More After"</strong></div>
+    </div>
+
+    <div class="mnemonic-box" style="margin-top:12px">
+      <div class="mnemonic-title">BMC Nine Elements — "CS VP CR Ch RS KA KR KP CS"</div>
+      <div style="font-size:13px; color:var(--text2)">
+        <strong style="color:var(--gold)">Customer Segment → Value Proposition → Customer Relationship → Channels → Revenue Streams</strong><br>
+        <strong style="color:var(--blue)">Key Activities → Key Resources → Key Partners → Cost Structure</strong><br><br>
+        Remember: <em>"Customers Value Real Connections; Revenue Keeps Any Real Business Competitive"</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MCQs ══ -->
+  <div id="mcq">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(34,197,160,0.1);">📝</div>
+      <h2>Test Your Knowledge — <span>MCQs</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="mcq-section">
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 01</div>
+        <div class="mcq-q">Which of the following is NOT a pillar of Strategic Cost Management?</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Value Chain Analysis</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">B</span>Strategic Positioning Analysis</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">C</span>Activity Based Budgeting</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Cost Driver Analysis</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: C</div>
+          The three pillars of SCM are Value Chain Analysis, Strategic Positioning Analysis, and Cost Driver Analysis. Activity Based Budgeting is not a pillar of SCM (though ABC is a tool of SCM).
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 02</div>
+        <div class="mcq-q">Strategic Cost Management is the application of cost management techniques so that they ___ the strategic position of a firm and reduce costs.</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Alternatively improve</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">B</span>Simultaneously improve</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">C</span>Temporarily improve</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Sequentially improve</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: B</div>
+          The exact ICAI definition: "SCM is the application of cost management techniques so that they <strong>simultaneously</strong> improve the strategic position of a firm and reduce costs." This word is critical for exams.
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 03</div>
+        <div class="mcq-q">Inbound logistics in Porter's Value Chain covers which of the following?</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Purchasing raw materials from vendors</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">B</span>Receiving, storing, and handling raw material inputs</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">C</span>Negotiating prices with suppliers</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Finding new external vendors</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: B</div>
+          Inbound logistics = receiving, storing, and handling raw material inputs. It does NOT cover purchasing/procurement (options A, C, D fall under Procurement which is a support activity). This is a classic trap question!
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 04</div>
+        <div class="mcq-q">Business is said to achieve a 'product-market fit' when:</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Features of value proposition map match customer segment profile</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">B</span>Business launches a new product for an existing market</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">C</span>The market validates the match and value proposition gets traction with real customers</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Cost of production equals customer willingness to pay</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: C</div>
+          Option A describes "Problem-Solution Fit" (features of VP map matching customer profile). Option C describes "Product-Market Fit" — when the <strong>market validates</strong> this match and VP gets traction with real customers.
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 05</div>
+        <div class="mcq-q">The Information Management (IM) strategy is characterised by which of the following?</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Business driven, Top-Down, Demand oriented</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">B</span>Technology focused, Bottom-up, Supply oriented</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">C</span>Management driven, Multi-directional, Relationship oriented</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Business driven, Bottom-up, Relationship oriented</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: C</div>
+          Per Earl's Framework: IS = Business Driven/Top-Down/Demand Oriented. IT = Technology Focused/Bottom-up/Supply Oriented. <strong>IM = Management Driven/Multi-directional/Relationship Oriented</strong>. Organisation wide level.
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 06</div>
+        <div class="mcq-q">Which strategy does Michael Porter describe as the 'kiss of death'?</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Pure cost leadership with no differentiation</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">B</span>Focusing only on niche markets</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">C</span>Trying to be all things to all customers — getting stuck in the middle</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Aggressive pricing below market rate</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: C</div>
+          Porter called trying to compete on both cost AND differentiation simultaneously — without being excellent at either — the "kiss of death." Companies end up stuck in the middle, competitive on neither front.
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 07</div>
+        <div class="mcq-q">The Osterwalder Business Model Canvas has how many elements?</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>7</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">B</span>8</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">C</span>9</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>11</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: C</div>
+          Osterwalder proposed a <strong>nine-element</strong> Business Model Canvas: 4 cost elements (Key Partners, Key Activities, Key Resources, Cost Structure) + 4 revenue elements (Customer Relationship, Channels, Customer Segments, Revenue Streams) + 1 central element (Value Proposition).
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 08</div>
+        <div class="mcq-q">RFID technology in value chain primarily benefits which primary activities?</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Marketing & Sales and After-Sales Service</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">B</span>Inbound Logistics and Outbound Logistics</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">C</span>Operations and After-Sales Service</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Inbound Logistics and Operations only</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: B</div>
+          RFID (Radio-Frequency Identification) uses electromagnetic fields to automatically identify and track tags attached to objects. It is used throughout the supply chain — primarily benefiting <strong>Inbound Logistics</strong> (tracking incoming materials) and <strong>Outbound Logistics</strong> (tracking finished goods deliveries).
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 09</div>
+        <div class="mcq-q">The Value Shop Model was conceptualised in 1967 by whom?</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Stabell & Fjeldstad</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">B</span>Michael E. Porter</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">C</span>James D. Thompson</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Alexander Osterwalder</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: C</div>
+          The Value Shop Model was <strong>conceptualised by James D. Thompson in 1967</strong>. It was later <strong>named and defined by Stabell & Fjeldstad in 1998</strong>. Porter introduced the generic Value Chain (1985). Osterwalder introduced BMC (2013).
+        </div>
+      </div>
+
+      <div class="mcq-item">
+        <div class="mcq-num">MCQ 10</div>
+        <div class="mcq-q">For an effective market segment, which is NOT a required criterion?</div>
+        <div class="mcq-options">
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">A</span>Homogeneous internally</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">B</span>Heterogeneous externally</div>
+          <div class="mcq-opt" onclick="markOpt(this, true)"><span class="opt-letter">C</span>Geographically concentrated</div>
+          <div class="mcq-opt" onclick="markOpt(this, false)"><span class="opt-letter">D</span>Responsive to marketing offerings</div>
+        </div>
+        <button class="reveal-btn" onclick="revealAns(this)">Reveal Answer</button>
+        <div class="mcq-answer">
+          <div class="ans-label">✅ Correct Answer: C</div>
+          The 5 criteria for a valid segment are: Homogeneous internally, Heterogeneous externally, Clearly identifiable, Reasonable/sufficient size, and Responsive. <strong>Geographic concentration is NOT required</strong> — segment basis can be demographic, psychographic, behavioural, etc.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ RAPID REVISION ══ -->
+  <div id="rapid-rev">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(212,168,67,0.1);">⚡</div>
+      <h2>Rapid Revision <span>— 18 Key Points</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="rr-grid">
+      <div class="rr-item"><div class="rr-num">1</div><div class="rr-text"><strong>SCM Definition:</strong> Application of cost management techniques to <em>simultaneously</em> improve strategic position and reduce costs.</div></div>
+      <div class="rr-item"><div class="rr-num">2</div><div class="rr-text"><strong>3 Pillars:</strong> Value Chain Analysis + Strategic Positioning Analysis + Cost Driver Analysis (VSC).</div></div>
+      <div class="rr-item"><div class="rr-num">3</div><div class="rr-text"><strong>Traditional CM vs SCM:</strong> Reactive vs Proactive | Short-term vs Long-term | Internal only vs Internal + External | Volume-based vs Activity-based costing.</div></div>
+      <div class="rr-item"><div class="rr-num">4</div><div class="rr-text"><strong>Value Chain Primary:</strong> Inbound Logistics → Operations → Outbound Logistics → Marketing & Sales → After-Sales Service.</div></div>
+      <div class="rr-item"><div class="rr-num">5</div><div class="rr-text"><strong>Value Chain Support:</strong> Firm Infrastructure, HR Management, Technology Development, Procurement. Increasing any support activity benefits at least one primary activity.</div></div>
+      <div class="rr-item"><div class="rr-num">6</div><div class="rr-text"><strong>Margin:</strong> Value customer willing to pay <em>minus</em> cost incurred by firm. Goal of value chain is to maximise margin.</div></div>
+      <div class="rr-item"><div class="rr-num">7</div><div class="rr-text"><strong>Competitive Advantage:</strong> Either Differentiation (premium price) or Cost Leadership (lowest cost). Porter's Kiss of Death = getting stuck in the middle.</div></div>
+      <div class="rr-item"><div class="rr-num">8</div><div class="rr-text"><strong>BMC:</strong> 9-element canvas (Osterwalder, 2013). Value Proposition at centre connecting 4 cost elements (left) to 4 revenue elements (right).</div></div>
+      <div class="rr-item"><div class="rr-num">9</div><div class="rr-text"><strong>VPC:</strong> Customer Profile (Jobs, Pains, Gains) + Value Map (Products/Services, Pain Relievers, Gain Creators). Fit = Problem-Solution Fit → Product-Market Fit.</div></div>
+      <div class="rr-item"><div class="rr-num">10</div><div class="rr-text"><strong>Porter's Five Forces:</strong> Buyers' power, Suppliers' power, Threat of substitutes, Threat of new entrants, Rivalry among existing firms (BRASS mnemonic).</div></div>
+      <div class="rr-item"><div class="rr-num">11</div><div class="rr-text"><strong>Barriers Matrix:</strong> High Entry + Low Exit = High, Stable Returns (best). High Entry + High Exit = High, Risky Returns.</div></div>
+      <div class="rr-item"><div class="rr-num">12</div><div class="rr-text"><strong>Segmentation Bases:</strong> Product, Demographic, Psychographic, Behavioural, Geographic. Criteria: Homogeneous, Heterogeneous, Identifiable, Reasonable size, Responsive.</div></div>
+      <div class="rr-item"><div class="rr-num">13</div><div class="rr-text"><strong>CSFs & KPIs:</strong> CSFs are critical success factors unique to each industry. KPIs are attached to each CSF to measure performance. CSFs change over time — reassess periodically.</div></div>
+      <div class="rr-item"><div class="rr-num">14</div><div class="rr-text"><strong>IT vs IS vs IM:</strong> IT (How) = activity level, supply oriented, bottom-up. IS (What) = SBU level, demand oriented, top-down. IM (Where) = org-wide, relationship oriented, multi-directional.</div></div>
+      <div class="rr-item"><div class="rr-num">15</div><div class="rr-text"><strong>RFID & Value Chain:</strong> Primarily benefits Inbound + Outbound logistics. RFID = radio-frequency identification for tracking items in supply chain.</div></div>
+      <div class="rr-item"><div class="rr-num">16</div><div class="rr-text"><strong>Management Accountant Evolution:</strong> Traditional 6 roles expanded to 10 with Analysis, Planning, Innovation & Leadership. Now at crossroads of Technology, Financial Analysis, Strategic Planning & Leadership.</div></div>
+      <div class="rr-item"><div class="rr-num">17</div><div class="rr-text"><strong>MBWA:</strong> Management by Walking Around — informal random workplace visits to improve morale, TQM, productivity. Origin: HP (1970s), similar to Toyota's Gemba Walk.</div></div>
+      <div class="rr-item"><div class="rr-num">18</div><div class="rr-text"><strong>Value Shop Model:</strong> Alternative to Value Chain for service firms. Conceptualised by Thompson (1967), named by Stabell & Fjeldstad (1998). Focus = problem resolution, not value creation.</div></div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- Footer -->
+<div style="background:var(--bg2); border-top:1px solid var(--border); padding:24px 40px; text-align:center">
+  <div style="font-size:12px; color:var(--text3); letter-spacing:1px">
+    CA FINAL RANK HUB · SCPM · Chapter 1 — An Introduction to Strategic Cost Management
+  </div>
+  <div style="font-size:11px; color:var(--text3); margin-top:6px">
+    Content based on ICAI official study material © CA Final Rank Hub 2025
+  </div>
+</div>
+
+<script>
+function markOpt(el, isCorrect) {
+  const parent = el.parentElement;
+  const opts = parent.querySelectorAll('.mcq-opt');
+  opts.forEach(o => o.classList.remove('correct', 'incorrect'));
+  el.classList.add(isCorrect ? 'correct' : 'incorrect');
+  if (!isCorrect) {
+    opts.forEach(o => {
+      if (o.onclick.toString().includes('true')) o.classList.add('correct');
+    });
+  }
+}
+
+function revealAns(btn) {
+  const ans = btn.nextElementSibling;
+  if (ans.style.display === 'block') {
+    ans.style.display = 'none';
+    btn.textContent = 'Reveal Answer';
+  } else {
+    ans.style.display = 'block';
+    btn.textContent = 'Hide Answer';
+  }
+}
+</script>
+
+</body>
+</html>
