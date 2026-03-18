@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSCM Ch.1 – Introduction to Financial Markets | CA Final Rank Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --card: #161e2e;
+    --border: #1f2d45;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #f59e0b;
+    --accent4: #10b981;
+    --accent5: #ef4444;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --highlight: #fbbf24;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.7; overflow-x:hidden; }
+
+  /* NAV */
+  nav { background:rgba(10,14,26,0.95); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:12px 24px; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:100; }
+  nav a { color:var(--muted); text-decoration:none; font-size:13px; }
+  nav a:hover { color:var(--accent); }
+  nav .sep { color:var(--border); }
+  nav .current { color:var(--accent); font-weight:600; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #0a0e1a 0%, #0d1b33 40%, #0a1628 100%); border-bottom:1px solid var(--border); padding:60px 40px 50px; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; top:-60px; right:-60px; width:400px; height:400px; background:radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%); pointer-events:none; }
+  .hero::after { content:''; position:absolute; bottom:-80px; left:20%; width:300px; height:300px; background:radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%); pointer-events:none; }
+  .paper-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.3); color:var(--accent); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:20px; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,46px); font-weight:900; line-height:1.1; margin-bottom:12px; }
+  .hero h1 span { color:var(--accent); }
+  .hero p.sub { color:var(--muted); font-size:14px; max-width:680px; margin-bottom:28px; }
+  .meta-chips { display:flex; flex-wrap:wrap; gap:10px; }
+  .chip { background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:20px; padding:5px 14px; font-size:12px; color:var(--muted); }
+  .chip b { color:var(--text); }
+
+  /* QUICK NAV */
+  .qnav { background:var(--surface); border-bottom:1px solid var(--border); padding:14px 40px; display:flex; gap:6px; flex-wrap:wrap; overflow-x:auto; }
+  .qnav a { background:var(--card); border:1px solid var(--border); color:var(--muted); text-decoration:none; font-size:12px; padding:6px 14px; border-radius:16px; white-space:nowrap; transition:all .2s; }
+  .qnav a:hover { background:var(--accent); color:#000; border-color:var(--accent); }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 24px; }
+
+  /* SECTION TITLES */
+  .sec-title { display:flex; align-items:center; gap:12px; margin-bottom:24px; margin-top:48px; }
+  .sec-title .icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+  .sec-title h2 { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; }
+  .sec-title .badge { background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.3); color:var(--accent); font-size:10px; font-weight:700; letter-spacing:1px; padding:3px 8px; border-radius:8px; text-transform:uppercase; }
+
+  /* REAL WORLD CASE */
+  .rw-case { background:linear-gradient(135deg, rgba(245,158,11,0.08), rgba(239,68,68,0.05)); border:1px solid rgba(245,158,11,0.3); border-left:4px solid var(--accent3); border-radius:12px; padding:24px 28px; margin-bottom:32px; position:relative; overflow:hidden; }
+  .rw-case::before { content:'🔥 REAL WORLD CASE'; position:absolute; top:14px; right:16px; font-size:10px; font-weight:700; letter-spacing:1.5px; color:var(--accent3); opacity:0.7; }
+  .rw-case h3 { color:var(--accent3); font-size:16px; font-weight:700; margin-bottom:10px; padding-right:140px; }
+  .rw-case p { color:#cbd5e1; font-size:14px; line-height:1.8; }
+  .rw-case .lesson { background:rgba(245,158,11,0.1); border-radius:8px; padding:10px 14px; margin-top:14px; font-size:13px; color:var(--accent3); }
+
+  /* DEFINITION CARD */
+  .def-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin-bottom:16px; transition:border-color .2s; }
+  .def-card:hover { border-color:var(--accent); }
+  .def-card .term { font-weight:700; color:var(--accent); font-size:15px; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .def-card .term .num { background:var(--accent); color:#000; width:22px; height:22px; border-radius:6px; font-size:11px; display:flex; align-items:center; justify-content:center; font-weight:800; flex-shrink:0; }
+  .def-card p { color:#94a3b8; font-size:14px; }
+  .def-card .key-point { margin-top:10px; background:rgba(0,212,255,0.06); border-radius:6px; padding:8px 12px; font-size:13px; color:var(--accent); }
+
+  /* MARKET TYPES GRID */
+  .markets-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:14px; margin-bottom:32px; }
+  .market-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 16px; text-align:center; transition:all .25s; cursor:default; }
+  .market-card:hover { transform:translateY(-3px); border-color:var(--accent2); box-shadow:0 8px 24px rgba(124,58,237,0.15); }
+  .market-card .micon { font-size:28px; margin-bottom:8px; }
+  .market-card h4 { font-size:13px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .market-card p { font-size:12px; color:var(--muted); line-height:1.5; }
+  .market-card .tag { display:inline-block; background:rgba(124,58,237,0.15); color:var(--accent2); font-size:10px; font-weight:700; padding:2px 8px; border-radius:8px; margin-top:6px; }
+
+  /* FLOWCHART */
+  .flowchart { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; margin-bottom:32px; overflow-x:auto; }
+  .flowchart h3 { font-size:14px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:20px; }
+  .flow-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+  .flow-box { background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.25); border-radius:10px; padding:10px 16px; font-size:13px; font-weight:500; color:var(--accent); white-space:nowrap; }
+  .flow-box.green { background:rgba(16,185,129,0.08); border-color:rgba(16,185,129,0.25); color:var(--accent4); }
+  .flow-box.yellow { background:rgba(245,158,11,0.08); border-color:rgba(245,158,11,0.25); color:var(--accent3); }
+  .flow-box.red { background:rgba(239,68,68,0.08); border-color:rgba(239,68,68,0.25); color:var(--accent5); }
+  .flow-box.purple { background:rgba(124,58,237,0.1); border-color:rgba(124,58,237,0.3); color:var(--accent2); }
+  .flow-arrow { color:var(--muted); font-size:16px; flex-shrink:0; }
+  .flow-down { text-align:center; color:var(--muted); font-size:20px; margin:4px 0; }
+  .flow-cycle { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; margin:10px 0; }
+
+  /* FUNCTIONS TABLE */
+  .func-table { width:100%; border-collapse:collapse; margin-bottom:32px; }
+  .func-table th { background:rgba(0,212,255,0.08); border:1px solid var(--border); padding:10px 14px; text-align:left; font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+  .func-table td { border:1px solid var(--border); padding:12px 14px; font-size:13px; vertical-align:top; }
+  .func-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .func-table td:first-child { font-weight:600; color:var(--text); width:200px; }
+  .func-table td:last-child { color:#94a3b8; }
+
+  /* STAKEHOLDER CATEGORIES */
+  .stakeholder-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:16px; margin-bottom:32px; }
+  .stake-cat { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .stake-cat .cat-head { padding:14px 18px; font-size:13px; font-weight:700; letter-spacing:0.5px; display:flex; align-items:center; gap:8px; }
+  .stake-cat .cat-head.primary { background:rgba(0,212,255,0.1); color:var(--accent); border-bottom:1px solid rgba(0,212,255,0.2); }
+  .stake-cat .cat-head.service { background:rgba(16,185,129,0.1); color:var(--accent4); border-bottom:1px solid rgba(16,185,129,0.2); }
+  .stake-cat .cat-head.regulator { background:rgba(239,68,68,0.1); color:var(--accent5); border-bottom:1px solid rgba(239,68,68,0.2); }
+  .stake-cat .cat-head.admin { background:rgba(245,158,11,0.1); color:var(--accent3); border-bottom:1px solid rgba(245,158,11,0.2); }
+  .stake-cat ul { list-style:none; padding:14px 18px; }
+  .stake-cat ul li { font-size:13px; color:#94a3b8; padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.03); display:flex; align-items:center; gap:8px; }
+  .stake-cat ul li:last-child { border-bottom:none; }
+  .stake-cat ul li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--muted); flex-shrink:0; }
+
+  /* REGULATOR COMPARE */
+  .compare-table { width:100%; border-collapse:collapse; margin-bottom:32px; }
+  .compare-table th { background:rgba(124,58,237,0.1); border:1px solid var(--border); padding:10px 14px; font-size:12px; font-weight:700; color:var(--accent2); text-transform:uppercase; letter-spacing:0.5px; }
+  .compare-table td { border:1px solid var(--border); padding:11px 14px; font-size:13px; vertical-align:top; }
+  .compare-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .compare-table td:first-child { color:var(--text); font-weight:600; width:140px; }
+  .compare-table td.india { color:#94a3b8; }
+  .compare-table td.global { color:#a5b4fc; }
+
+  /* MONEY MARKET INSTRUMENTS */
+  .mm-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:14px; margin-bottom:32px; }
+  .mm-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+  .mm-card .mm-title { font-weight:700; font-size:14px; color:var(--text); margin-bottom:4px; display:flex; justify-content:space-between; align-items:center; }
+  .mm-card .mm-title .mm-badge { background:rgba(16,185,129,0.12); color:var(--accent4); font-size:10px; font-weight:700; padding:2px 8px; border-radius:6px; }
+  .mm-card p { font-size:13px; color:var(--muted); margin-bottom:8px; }
+  .mm-card .mm-detail { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .mm-card .mm-tag { background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:11px; color:#94a3b8; font-family:'JetBrains Mono',monospace; }
+
+  /* MNEMONIC */
+  .mnemonic { background:linear-gradient(135deg, rgba(124,58,237,0.1), rgba(0,212,255,0.05)); border:1px solid rgba(124,58,237,0.3); border-radius:14px; padding:24px 28px; margin-bottom:32px; }
+  .mnemonic h3 { color:var(--accent2); font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .mnemonic-word { font-family:'Playfair Display',serif; font-size:32px; font-weight:900; color:var(--accent); letter-spacing:6px; margin-bottom:16px; }
+  .mnemonic-list { display:flex; flex-direction:column; gap:8px; }
+  .mnemonic-list .ml-row { display:flex; align-items:center; gap:12px; font-size:14px; }
+  .mnemonic-list .ml-letter { font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:700; color:var(--accent2); width:30px; flex-shrink:0; }
+  .mnemonic-list .ml-word { color:var(--text); font-weight:600; width:120px; }
+  .mnemonic-list .ml-desc { color:var(--muted); font-size:13px; }
+
+  /* MCQ SECTION */
+  .mcq-block { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px; margin-bottom:16px; }
+  .mcq-block .q-num { font-size:11px; font-weight:700; color:var(--accent); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+  .mcq-block .q-text { font-size:15px; font-weight:500; color:var(--text); margin-bottom:16px; line-height:1.6; }
+  .mcq-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px; }
+  .mcq-opt { background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-size:13px; color:var(--muted); cursor:pointer; transition:all .2s; display:flex; gap:10px; align-items:flex-start; }
+  .mcq-opt:hover { border-color:var(--accent2); color:var(--text); background:rgba(124,58,237,0.08); }
+  .mcq-opt.correct { border-color:var(--accent4)!important; background:rgba(16,185,129,0.08)!important; color:var(--accent4)!important; }
+  .mcq-opt.wrong { border-color:var(--accent5)!important; background:rgba(239,68,68,0.08)!important; color:var(--accent5)!important; }
+  .mcq-opt .opt-letter { font-family:'JetBrains Mono',monospace; font-weight:700; flex-shrink:0; }
+  .mcq-explain { background:rgba(16,185,129,0.07); border:1px solid rgba(16,185,129,0.2); border-radius:8px; padding:12px 14px; font-size:13px; color:var(--accent4); display:none; }
+  .mcq-explain.show { display:block; }
+  .show-ans-btn { background:transparent; border:1px solid var(--border); color:var(--muted); font-size:12px; padding:6px 16px; border-radius:8px; cursor:pointer; transition:all .2s; font-family:'DM Sans',sans-serif; }
+  .show-ans-btn:hover { border-color:var(--accent4); color:var(--accent4); }
+
+  /* RAPID REVISION */
+  .rapid { background:linear-gradient(135deg, rgba(239,68,68,0.08), rgba(245,158,11,0.05)); border:1px solid rgba(239,68,68,0.25); border-radius:14px; padding:24px 28px; margin-bottom:32px; }
+  .rapid h3 { color:var(--accent5); font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .rapid-list { display:flex; flex-direction:column; gap:10px; }
+  .rapid-item { display:flex; gap:12px; align-items:flex-start; font-size:14px; }
+  .rapid-item .ri-num { background:var(--accent5); color:#fff; width:22px; height:22px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; margin-top:2px; }
+  .rapid-item .ri-text { color:#cbd5e1; line-height:1.6; }
+  .rapid-item b { color:var(--accent3); }
+
+  /* COMPARISON REGULATOR */
+  .reg-compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px; }
+  .reg-box { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .reg-box .reg-head { padding:14px 18px; font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px; }
+  .reg-box .reg-head.india { background:rgba(245,158,11,0.1); color:var(--accent3); border-bottom:1px solid rgba(245,158,11,0.2); }
+  .reg-box .reg-head.us { background:rgba(0,212,255,0.08); color:var(--accent); border-bottom:1px solid rgba(0,212,255,0.15); }
+  .reg-box ul { list-style:none; padding:14px 18px; }
+  .reg-box ul li { font-size:13px; color:#94a3b8; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; gap:8px; }
+  .reg-box ul li::before { content:'→'; color:var(--accent3); flex-shrink:0; }
+  .reg-box ul li:last-child { border-bottom:none; }
+
+  /* SENSEX DATA */
+  .sensex-insight { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin-bottom:32px; }
+  .sensex-insight h3 { font-size:14px; font-weight:700; color:var(--muted); margin-bottom:14px; text-transform:uppercase; letter-spacing:1px; }
+  .si-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:12px; }
+  .si-stat { background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:10px; padding:14px 16px; text-align:center; }
+  .si-stat .si-val { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--accent4); }
+  .si-stat .si-label { font-size:12px; color:var(--muted); margin-top:4px; }
+
+  /* FOOTER */
+  .chapter-footer { background:var(--surface); border-top:1px solid var(--border); padding:32px 40px; margin-top:60px; text-align:center; }
+  .chapter-footer p { color:var(--muted); font-size:13px; }
+  .nav-btns { display:flex; justify-content:center; gap:12px; margin-bottom:16px; }
+  .nav-btn { background:var(--card); border:1px solid var(--border); color:var(--text); text-decoration:none; padding:10px 24px; border-radius:10px; font-size:13px; font-weight:600; transition:all .2s; }
+  .nav-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .nav-btn.primary { background:var(--accent); color:#000; border-color:var(--accent); }
+  .nav-btn.primary:hover { background:#00b8d9; }
+
+  /* HIGHLIGHT BOX */
+  .hbox { background:rgba(0,212,255,0.05); border:1px solid rgba(0,212,255,0.2); border-radius:10px; padding:16px 20px; margin-bottom:20px; font-size:14px; color:#94a3b8; }
+  .hbox b { color:var(--accent); }
+
+  @media(max-width:600px) {
+    .hero { padding:40px 20px 36px; }
+    .qnav { padding:12px 20px; }
+    .container { padding:30px 16px; }
+    .mcq-options { grid-template-columns:1fr; }
+    .reg-compare { grid-template-columns:1fr; }
+    .flow-cycle { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <span class="sep">›</span>
+  <a href="#">Paper 9: FSCM</a>
+  <span class="sep">›</span>
+  <span class="current">Ch.1 – Intro to Financial Markets</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="paper-tag">📈 Paper 9 · Financial Services &amp; Capital Markets</div>
+  <h1>Chapter 1: <span>Introduction to Financial Markets</span></h1>
+  <p class="sub">Complete rank-ready notes with real-world cases, flowcharts, mnemonics &amp; MCQs from ICAI Study Material.</p>
+  <div class="meta-chips">
+    <div class="chip">⏱ <b>Read time:</b> ~25 min</div>
+    <div class="chip">📝 <b>ICAI Chapter:</b> 1 of 9</div>
+    <div class="chip">🎯 <b>MCQs Included:</b> 10</div>
+    <div class="chip">🔑 <b>Sections:</b> 4</div>
+  </div>
+</div>
+
+<!-- QUICK NAV -->
+<div class="qnav">
+  <a href="#types">Market Types</a>
+  <a href="#importance">Importance</a>
+  <a href="#economic">Economic Role</a>
+  <a href="#stakeholders">Stakeholders</a>
+  <a href="#regulators">Regulators</a>
+  <a href="#indian">Indian Markets</a>
+  <a href="#moneymarket">Money Market</a>
+  <a href="#mnemonic">Mnemonics</a>
+  <a href="#mcqs">MCQs</a>
+  <a href="#rapid">Rapid Revision</a>
+</div>
+
+<div class="container">
+
+  <!-- ===== REAL WORLD CASE ===== -->
+  <div class="rw-case">
+    <h3>IL&FS Crisis (2018): When a Financial Market Fails its Economy</h3>
+    <p>Infrastructure Leasing &amp; Financial Services (IL&FS), a major NBFC, suddenly defaulted on short-term loans (Commercial Papers) worth ₹91,000 crore. This triggered a credit market freeze — mutual funds holding these CPs panicked, redemption pressure spiked, and NBFCs across India couldn't raise funds. The cascading effect slowed GDP growth and impacted automobile, real estate &amp; shadow banking sectors.</p>
+    <div class="lesson">📌 <b>Exam Insight:</b> This perfectly illustrates how Money Market (CP defaults) → Capital Market (MF panic) → Real Economy (credit freeze) linkages work — exactly what Section 2.2 (Linkages in Financial Flows) tests. The IL&amp;FS crisis also showed why SEBI regulation of intermediaries and IRDAI oversight of insurance companies investing in these instruments matters enormously.</div>
+  </div>
+
+  <!-- ===== WHAT IS A FINANCIAL MARKET ===== -->
+  <div class="sec-title">
+    <div class="icon" style="background:rgba(0,212,255,0.1);">💡</div>
+    <h2>What is a Financial Market?</h2>
+    <span class="badge">Basics</span>
+  </div>
+
+  <div class="hbox">
+    A <b>Financial Market</b> is a marketplace providing an avenue for the <b>sale and purchase of financial assets</b> such as equity stocks, bonds, foreign exchange, commodities, derivatives, etc. It channels funds from <b>surplus units</b> (savers) to <b>deficit units</b> (borrowers/investors).
+  </div>
+
+  <!-- ===== TYPES OF MARKETS ===== -->
+  <div id="types" class="sec-title" style="margin-top:32px;">
+    <div class="icon" style="background:rgba(124,58,237,0.15);">🗂</div>
+    <h2>Major Types of Financial Markets</h2>
+    <span class="badge">Section 1.1</span>
+  </div>
+
+  <div class="markets-grid">
+    <div class="market-card">
+      <div class="micon">📊</div>
+      <h4>Stock Market</h4>
+      <p>Trading in equity stocks. Returns come from <b>capital price appreciation</b>. Dividend yield is low. Highly volatile — reflects economic expectations.</p>
+      <div class="tag">Long-term</div>
+    </div>
+    <div class="market-card">
+      <div class="micon">🏦</div>
+      <h4>Bond Market</h4>
+      <p>Companies &amp; governments raise money with <b>defined repayment timeline</b>. Investor gets coupon (interest) + principal on maturity.</p>
+      <div class="tag">Fixed Income</div>
+    </div>
+    <div class="market-card">
+      <div class="micon">🌾</div>
+      <h4>Commodities Market</h4>
+      <p>Buy/sell natural resources: gold, oil, corn, pulses. Prices of future delivery set <b>today</b>. India &amp; China top global commodity markets.</p>
+      <div class="tag">Physical Assets</div>
+    </div>
+    <div class="market-card">
+      <div class="micon">💱</div>
+      <h4>Currency Market</h4>
+      <p>Market for foreign currencies. Helps importers &amp; exporters <b>hedge</b> currency exposure. Enables cross-currency transactions.</p>
+      <div class="tag">Forex</div>
+    </div>
+    <div class="market-card">
+      <div class="micon">💧</div>
+      <h4>Money Market</h4>
+      <p>Short-term funds (&lt;1 year). Manages <b>liquidity</b> in the economy. RBI + commercial banks are key players. Controls inflation.</p>
+      <div class="tag">&lt;1 Year</div>
+    </div>
+    <div class="market-card">
+      <div class="micon">📐</div>
+      <h4>Derivatives Market</h4>
+      <p>Contracts whose value is based on an <b>underlying asset</b>. Includes futures, options. Used for hedging &amp; speculation.</p>
+      <div class="tag">Risk Transfer</div>
+    </div>
+    <div class="market-card">
+      <div class="micon">📅</div>
+      <h4>Futures Market</h4>
+      <p>Agree to buy/sell asset at <b>predetermined future price</b>. Used for price discovery and risk management.</p>
+      <div class="tag">Forward Contract</div>
+    </div>
+    <div class="market-card">
+      <div class="micon">🛡</div>
+      <h4>Insurance Market</h4>
+      <p>Risk pooling mechanism. Connects those seeking protection with those willing to assume risk for a premium.</p>
+      <div class="tag">Risk Pooling</div>
+    </div>
+  </div>
+
+  <!-- ===== IMPORTANCE ===== -->
+  <div id="importance" class="sec-title">
+    <div class="icon" style="background:rgba(16,185,129,0.12);">⚡</div>
+    <h2>Importance / Functions of Financial Markets</h2>
+    <span class="badge">Section 1.2 &amp; 2.1</span>
+  </div>
+
+  <table class="func-table">
+    <tr>
+      <th>Function</th>
+      <th>What it means</th>
+    </tr>
+    <tr>
+      <td>📈 Productive Use of Savings</td>
+      <td>Banks and FIs channel idle savings into loans for homes, education, business — savings alone add no value; <b>investment does</b>.</td>
+    </tr>
+    <tr>
+      <td>🎯 Price Discovery</td>
+      <td>Once a security is listed, buy/sell trades reveal the market's valuation of a company's future prospects. Called <b>Price Discovery</b>.</td>
+    </tr>
+    <tr>
+      <td>💧 Liquidity Creation</td>
+      <td>Buyers &amp; sellers can trade anytime (given a counterpart). This makes assets <b>liquid</b> and incentivizes more investment.</td>
+    </tr>
+    <tr>
+      <td>💰 Lower Transaction Cost</td>
+      <td>Exchanges and associations disseminate information freely — reducing the cost of getting data about securities.</td>
+    </tr>
+    <tr>
+      <td>🏗 Capital Access</td>
+      <td>Individuals, companies, governments get access to capital they couldn't otherwise raise directly.</td>
+    </tr>
+    <tr>
+      <td>👷 Job Creation</td>
+      <td>Brokers, underwriters, merchant bankers, custodians, depositories — entire industries emerge around financial markets.</td>
+    </tr>
+  </table>
+
+  <!-- ===== ECONOMIC ROLE FLOWCHART ===== -->
+  <div id="economic" class="sec-title">
+    <div class="icon" style="background:rgba(245,158,11,0.12);">🔄</div>
+    <h2>Role in Economic Development</h2>
+    <span class="badge">Section 2</span>
+  </div>
+
+  <div class="flowchart">
+    <h3>🔁 The Virtuous Economic Cycle</h3>
+    <div class="flow-row">
+      <div class="flow-box">Financial Market</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box green">Channels Savings to Investment</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box yellow">More Capital for Industry</div>
+    </div>
+    <div class="flow-down">↓</div>
+    <div class="flow-row">
+      <div class="flow-box yellow">Increased Production</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box green">More Jobs Created</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Higher Standard of Living</div>
+    </div>
+    <div class="flow-down">↓</div>
+    <div class="flow-row">
+      <div class="flow-box">More Demand for Goods</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box yellow">More Capex</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box green">More Tax Revenue</div>
+    </div>
+    <div class="flow-down">↓</div>
+    <div class="flow-row">
+      <div class="flow-box green">Govt Spends More</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">More Jobs &amp; Demand Again ♻</div>
+    </div>
+  </div>
+
+  <div class="flowchart">
+    <h3>💸 Financial Flow Linkages (Baily &amp; Elliott's 3 Functions)</h3>
+    <div class="flow-row" style="margin-bottom:12px;">
+      <div class="flow-box">Lender-Savers<br><small style="color:#64748b">Households, Firms, Govt, Foreigners</small></div>
+      <span class="flow-arrow">→ FUNDS →</span>
+      <div class="flow-box purple">Financial Markets / Intermediaries</div>
+      <span class="flow-arrow">→ FUNDS →</span>
+      <div class="flow-box green">Borrower-Spenders<br><small style="color:#64748b">Business firms, Govt, Households</small></div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px;">
+      <div style="background:rgba(0,212,255,0.05); border:1px solid rgba(0,212,255,0.15); border-radius:10px; padding:14px; font-size:13px;">
+        <div style="color:var(--accent); font-weight:700; margin-bottom:6px;">1. Credit Provision</div>
+        <div style="color:#64748b;">Govt invests in infra; businesses invest beyond cash; individuals buy homes on credit.</div>
+      </div>
+      <div style="background:rgba(16,185,129,0.05); border:1px solid rgba(16,185,129,0.15); border-radius:10px; padding:14px; font-size:13px;">
+        <div style="color:var(--accent4); font-weight:700; margin-bottom:6px;">2. Liquidity Provision</div>
+        <div style="color:#64748b;">Demand deposits, overdraft facilities, buy/sell securities in large volumes on demand.</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.05); border:1px solid rgba(245,158,11,0.15); border-radius:10px; padding:14px; font-size:13px;">
+        <div style="color:var(--accent3); font-weight:700; margin-bottom:6px;">3. Risk Management</div>
+        <div style="color:#64748b;">Derivative transactions pool risks. Protects against financial market and commodity price volatility.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STAKEHOLDERS ===== -->
+  <div id="stakeholders" class="sec-title">
+    <div class="icon" style="background:rgba(124,58,237,0.12);">👥</div>
+    <h2>Stakeholders in Financial Market</h2>
+    <span class="badge">Section 3</span>
+  </div>
+
+  <div class="stakeholder-grid">
+    <div class="stake-cat">
+      <div class="cat-head primary">① Primary Stakeholders</div>
+      <ul>
+        <li>Shareholders (own the company; buy low, sell high)</li>
+        <li>Lenders (issue bonds/debentures; provide liquidity)</li>
+        <li>Companies/Corporates (raise equity or debt capital)</li>
+        <li>Mutual Fund Orgs / Fund Managers</li>
+      </ul>
+    </div>
+    <div class="stake-cat">
+      <div class="cat-head service">② Service Providers</div>
+      <ul>
+        <li>Merchant Bankers (IPO issue management, due diligence)</li>
+        <li>Brokers (SEBI-registered; buy/sell on behalf of clients)</li>
+        <li>Underwriters (guarantee subscription; profit from IPO spread)</li>
+        <li>Depositories (NSDL, CDSL — electronic share holding)</li>
+        <li>Custodians (safekeeping, SHCIL, SBI ShareHolding)</li>
+      </ul>
+    </div>
+    <div class="stake-cat">
+      <div class="cat-head regulator">③ Regulators</div>
+      <ul>
+        <li>SEBI (1992) — Securities market</li>
+        <li>RBI (1935/1949) — Banking &amp; forex</li>
+        <li>IRDAI (1999) — Insurance industry</li>
+        <li>PFRDA — Pension funds</li>
+      </ul>
+    </div>
+    <div class="stake-cat">
+      <div class="cat-head admin">④ Administrative Bodies</div>
+      <ul>
+        <li>AMFI (1995) — MF industry body</li>
+        <li>FEDAI (1958) — Forex dealers</li>
+        <li>FIMMDA (1998) — Bond/money/derivatives</li>
+        <li>AIBI — Investment bankers</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- KEY SERVICE PROVIDER DETAILS -->
+  <div id="regulators" class="sec-title">
+    <div class="icon" style="background:rgba(239,68,68,0.12);">🏛</div>
+    <h2>Key Entities: Deep Dive</h2>
+    <span class="badge">Exam-Favourite</span>
+  </div>
+
+  <div class="def-card">
+    <div class="term"><span class="num">U</span> Underwriters — How They Make Money</div>
+    <p>Underwriters <b>guarantee subscription</b> of unsubscribed shares during IPOs. They charge a small fee. Their profit = <b>Difference between pre-IPO price paid and public offer price.</b></p>
+    <div class="key-point">⚡ Exam Trap: Underwriters are <b>service providers</b>, NOT primary stakeholders. Companies are primary stakeholders, not underwriters.</div>
+  </div>
+
+  <div class="def-card">
+    <div class="term"><span class="num">D</span> Depositories vs Custodians — Know the Difference</div>
+    <p><b>Depositories</b> (NSDL, CDSL): Maintain investor accounts in <b>electronic form</b>; transfer ownership on trades; accessed via Depository Participants (DPs).</p>
+    <p style="margin-top:8px;"><b>Custodians</b> (SHCIL, SBI ShareHolding): Provide <b>safe-keeping</b> + collect dividends + transfer certificates + update client status. Fee: ~1% of transaction volume. Note: US funds require custodians with USD 200 million capital — no Indian custodian qualifies, so foreign banks (Citi, Deutsche, HSBC) serve FIIs.</p>
+  </div>
+
+  <!-- SEBI vs SEC COMPARISON -->
+  <div class="reg-compare">
+    <div class="reg-box">
+      <div class="reg-head india">🇮🇳 SEBI (India) — Est. 1992</div>
+      <ul>
+        <li>Regulates securities exchanges</li>
+        <li>Registers &amp; regulates intermediaries, MFs</li>
+        <li>Promotes &amp; regulates SROs</li>
+        <li>Prohibits insider trading &amp; fraud</li>
+        <li>Promotes investor education</li>
+        <li>Regulates takeovers</li>
+        <li><b>Limited penalty amount</b> — weaker deterrent</li>
+      </ul>
+    </div>
+    <div class="reg-box">
+      <div class="reg-head us">🇺🇸 SEC (USA) — Global Counterpart</div>
+      <ul>
+        <li>Same functions as SEBI broadly</li>
+        <li>Must be registered with SEC &amp; join SRO</li>
+        <li>Can impose <b>unlimited fine</b> — stronger deterrent</li>
+        <li>More enforcement "teeth" than SEBI</li>
+        <li>Acts as effective deterrent vs malpractices</li>
+        <li>FDMs regulated by CFTC + NFA (for forex)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="def-card">
+    <div class="term"><span class="num">R</span> RBI vs Fed (USA)</div>
+    <p><b>RBI (India):</b> Primarily driven by <b>inflation control</b> (even at expense of growth). Keeps interest rates higher to discourage excess borrowing.</p>
+    <p style="margin-top:8px;"><b>Federal Reserve (USA):</b> Primarily driven by <b>growth and employment</b> (even at expense of inflation). Low interest rates encourage industry borrowing.</p>
+  </div>
+
+  <!-- ===== INDIAN MARKET ===== -->
+  <div id="indian" class="sec-title">
+    <div class="icon" style="background:rgba(245,158,11,0.12);">🇮🇳</div>
+    <h2>Indian Financial Market Scenario</h2>
+    <span class="badge">Section 4</span>
+  </div>
+
+  <div class="sensex-insight">
+    <h3>📊 Sensex Historical Returns — Key Conclusion</h3>
+    <div class="si-grid">
+      <div class="si-stat">
+        <div class="si-val">25/38</div>
+        <div class="si-label">1-Year: Positive returns</div>
+      </div>
+      <div class="si-stat">
+        <div class="si-val">28/29</div>
+        <div class="si-label">10-Year: Positive returns</div>
+      </div>
+      <div class="si-stat">
+        <div class="si-val">27/27</div>
+        <div class="si-label">15-Year: Always positive!</div>
+      </div>
+      <div class="si-stat">
+        <div class="si-val">22/22</div>
+        <div class="si-label">20-Year: Always positive!</div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:var(--muted); margin-top:14px;">⚡ <b>Key lesson:</b> Short-term equity is a gamble; long-term equity is almost a certainty. Buffett Indicator = Market Cap / GDP.</p>
+  </div>
+
+  <!-- ===== MONEY MARKET INSTRUMENTS ===== -->
+  <div id="moneymarket" class="sec-title">
+    <div class="icon" style="background:rgba(16,185,129,0.12);">💵</div>
+    <h2>Money Market Instruments</h2>
+    <span class="badge">Section 4.1</span>
+  </div>
+
+  <div class="mm-grid">
+    <div class="mm-card">
+      <div class="mm-title">Treasury Bills (T-Bills) <span class="mm-badge">Govt</span></div>
+      <p>Short-term instruments issued by Central Government. Issued at discount, redeemed at par.</p>
+      <div class="mm-detail">
+        <span class="mm-tag">Maturity: &lt;1 Year</span>
+        <span class="mm-tag">91d / 182d / 364d</span>
+        <span class="mm-tag">Zero coupon</span>
+      </div>
+    </div>
+    <div class="mm-card">
+      <div class="mm-title">Cash Management Bills (CMBs) <span class="mm-badge">Govt</span></div>
+      <p>Issued by GoI to meet <b>temporary cash flow mismatches</b>. Similar to T-Bills but shorter.</p>
+      <div class="mm-detail">
+        <span class="mm-tag">Maturity: &lt;91 days</span>
+        <span class="mm-tag">Discount to par</span>
+      </div>
+    </div>
+    <div class="mm-card">
+      <div class="mm-title">Call / Notice / Term Money <span class="mm-badge">Banks</span></div>
+      <p>Short-term borrowing/lending between banks &amp; Primary Dealers.</p>
+      <div class="mm-detail">
+        <span class="mm-tag">Call: 1 day</span>
+        <span class="mm-tag">Notice: 2-14 days</span>
+        <span class="mm-tag">Term: 15d+</span>
+      </div>
+    </div>
+    <div class="mm-card">
+      <div class="mm-title">Certificate of Deposits (CDs) <span class="mm-badge">Banks</span></div>
+      <p>Issued by <b>banks</b> for short-term funding. Used when credit growth &gt; deposit growth.</p>
+      <div class="mm-detail">
+        <span class="mm-tag">3, 6, 12 months</span>
+        <span class="mm-tag">Discount → Par</span>
+        <span class="mm-tag">Bulk issuance</span>
+      </div>
+    </div>
+    <div class="mm-card">
+      <div class="mm-title">Commercial Papers (CPs) <span class="mm-badge">Corporates</span></div>
+      <p>Issued by <b>corporates</b> (especially NBFCs), primary dealers. Higher risk &amp; yield than T-Bills.</p>
+      <div class="mm-detail">
+        <span class="mm-tag">Discount to FV</span>
+        <span class="mm-tag">Higher yield</span>
+        <span class="mm-tag">NBFCs major issuer</span>
+      </div>
+    </div>
+    <div class="mm-card">
+      <div class="mm-title">Repurchase Agreements (Repo) <span class="mm-badge">RBI</span></div>
+      <p><b>Seller's view = Repo;</b> Buyer's view = Reverse Repo. Short-term loans against Govt securities approved by RBI.</p>
+      <div class="mm-detail">
+        <span class="mm-tag">Collateral: G-Sec, T-Bills</span>
+        <span class="mm-tag">RBI approved</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hbox">
+    🔑 <b>CDs vs CPs:</b> Both are short-term instruments issued at discount. CDs are issued by <b>Banks</b>; CPs are issued by <b>Corporates</b>. CPs have higher risk &amp; yield than T-Bills.
+  </div>
+
+  <!-- ===== MNEMONICS ===== -->
+  <div id="mnemonic" class="sec-title">
+    <div class="icon" style="background:rgba(124,58,237,0.12);">🧠</div>
+    <h2>Memory Tricks &amp; Mnemonics</h2>
+  </div>
+
+  <div class="mnemonic">
+    <h3>🔤 Remember the 4 Types of Stakeholders</h3>
+    <div class="mnemonic-word">PSRA</div>
+    <div class="mnemonic-list">
+      <div class="ml-row"><span class="ml-letter">P</span><span class="ml-word">Primary</span><span class="ml-desc">Shareholders, Lenders, Companies, MF Orgs</span></div>
+      <div class="ml-row"><span class="ml-letter">S</span><span class="ml-word">Service Providers</span><span class="ml-desc">Merchant Bankers, Brokers, Underwriters, Depositories, Custodians</span></div>
+      <div class="ml-row"><span class="ml-letter">R</span><span class="ml-word">Regulators</span><span class="ml-desc">SEBI, RBI, IRDAI, PFRDA</span></div>
+      <div class="ml-row"><span class="ml-letter">A</span><span class="ml-word">Admin Bodies</span><span class="ml-desc">AMFI, FEDAI, FIMMDA, AIBI</span></div>
+    </div>
+  </div>
+
+  <div class="mnemonic">
+    <h3>🔤 Remember Money Market Instruments</h3>
+    <div class="mnemonic-word">TC³R</div>
+    <div class="mnemonic-list">
+      <div class="ml-row"><span class="ml-letter">T</span><span class="ml-word">T-Bills</span><span class="ml-desc">Treasury Bills — Central Govt, 91/182/364 days</span></div>
+      <div class="ml-row"><span class="ml-letter">C</span><span class="ml-word">CMBs</span><span class="ml-desc">Cash Management Bills — &lt;91 days, temporary cash gaps</span></div>
+      <div class="ml-row"><span class="ml-letter">C</span><span class="ml-word">Call Money</span><span class="ml-desc">Call (1d), Notice (2-14d), Term (15d+)</span></div>
+      <div class="ml-row"><span class="ml-letter">C</span><span class="ml-word">CDs &amp; CPs</span><span class="ml-desc">CDs = Banks; CPs = Corporates (NBFCs)</span></div>
+      <div class="ml-row"><span class="ml-letter">R</span><span class="ml-word">Repo</span><span class="ml-desc">Repurchase Agreements — Seller=Repo, Buyer=Reverse Repo</span></div>
+    </div>
+  </div>
+
+  <div class="mnemonic">
+    <h3>🔤 Functions of Financial Markets — "PILLOW"</h3>
+    <div class="mnemonic-word">PILLOW</div>
+    <div class="mnemonic-list">
+      <div class="ml-row"><span class="ml-letter">P</span><span class="ml-word">Price Discovery</span><span class="ml-desc">Market determines fair value of securities</span></div>
+      <div class="ml-row"><span class="ml-letter">I</span><span class="ml-word">Investment</span><span class="ml-desc">Puts savings into more productive use</span></div>
+      <div class="ml-row"><span class="ml-letter">L</span><span class="ml-word">Liquidity</span><span class="ml-desc">Makes financial assets tradeable anytime</span></div>
+      <div class="ml-row"><span class="ml-letter">L</span><span class="ml-word">Lower Costs</span><span class="ml-desc">Reduces transaction &amp; information costs</span></div>
+      <div class="ml-row"><span class="ml-letter">O</span><span class="ml-word">Opportunity</span><span class="ml-desc">Access to capital for individuals, firms, govts</span></div>
+      <div class="ml-row"><span class="ml-letter">W</span><span class="ml-word">Work (Jobs)</span><span class="ml-desc">Creates employment in financial services</span></div>
+    </div>
+  </div>
+
+  <!-- ===== MCQs ===== -->
+  <div id="mcqs" class="sec-title">
+    <div class="icon" style="background:rgba(239,68,68,0.12);">📝</div>
+    <h2>Practice MCQs</h2>
+    <span class="badge">10 Questions</span>
+  </div>
+
+  <!-- MCQ 1 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 1 · ICAI Official</div>
+    <div class="q-text">The derivatives market deals in contracts whose value is based on the market value of the asset being traded, called the ___________.</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',1)"><span class="opt-letter">A</span> Forwards</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',1)"><span class="opt-letter">B</span> Futures</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',1)"><span class="opt-letter">C</span> Options</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',1)"><span class="opt-letter">D</span> Underlying</div>
+    </div>
+    <div class="mcq-explain" id="exp1">✅ <b>Underlying</b> — The asset whose value drives the derivative contract is called the "underlying." Forwards, futures, and options are all types of derivatives — not the underlying itself.</div>
+    <button class="show-ans-btn" onclick="toggleExp(1)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 2 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 2 · ICAI Official</div>
+    <div class="q-text">Which among the following is NOT a function of Financial Markets?</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',2)"><span class="opt-letter">A</span> Puts savings into more productive use</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',2)"><span class="opt-letter">B</span> Determines the price of securities</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',2)"><span class="opt-letter">C</span> Makes financial assets risky and liquid</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',2)"><span class="opt-letter">D</span> Lowers the cost of transactions</div>
+    </div>
+    <div class="mcq-explain" id="exp2">✅ <b>Option C</b> — Financial markets make assets <b>liquid</b>, NOT risky. The word "risky" makes this incorrect. Markets actually help <i>manage</i> and <i>reduce</i> risk through diversification and derivatives.</div>
+    <button class="show-ans-btn" onclick="toggleExp(2)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 3 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 3 · ICAI Official</div>
+    <div class="q-text">Which among the following is the PRIMARY stakeholder in the financial market?</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',3)"><span class="opt-letter">A</span> Merchant Bankers</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',3)"><span class="opt-letter">B</span> Brokers</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',3)"><span class="opt-letter">C</span> Underwriters</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',3)"><span class="opt-letter">D</span> Companies</div>
+    </div>
+    <div class="mcq-explain" id="exp3">✅ <b>Companies</b> — Primary stakeholders are: Shareholders, Lenders, Companies, and Mutual Fund Orgs. Merchant Bankers, Brokers, and Underwriters are <b>Service Providers</b>, not primary stakeholders.</div>
+    <button class="show-ans-btn" onclick="toggleExp(3)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 4 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 4 · ICAI Official</div>
+    <div class="q-text">The ___________ make their profit on the difference in price between what they paid before the IPO and when the shares are offered to the public.</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'correct',4)"><span class="opt-letter">A</span> Underwriters</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',4)"><span class="opt-letter">B</span> Merchant Bankers</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',4)"><span class="opt-letter">C</span> Brokers</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',4)"><span class="opt-letter">D</span> Custodians</div>
+    </div>
+    <div class="mcq-explain" id="exp4">✅ <b>Underwriters</b> — They buy shares before listing and profit from the spread between their cost and the public offer price. They also earn fees for guaranteeing subscription of unsubscribed portions.</div>
+    <button class="show-ans-btn" onclick="toggleExp(4)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 5 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 5 · ICAI Official</div>
+    <div class="q-text">___________ is a voluntary market body for the bond, money, and derivatives markets.</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',5)"><span class="opt-letter">A</span> AMFI</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',5)"><span class="opt-letter">B</span> FIMMDA</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',5)"><span class="opt-letter">C</span> AIBI</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',5)"><span class="opt-letter">D</span> FEDAI</div>
+    </div>
+    <div class="mcq-explain" id="exp5">✅ <b>FIMMDA</b> — Fixed Income Money Market and Derivatives Association of India. AMFI = Mutual Funds. FEDAI = Forex. AIBI = Investment Bankers.</div>
+    <button class="show-ans-btn" onclick="toggleExp(5)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 6 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 6 · Concept-Based</div>
+    <div class="q-text">Cash Management Bills (CMBs) are different from Treasury Bills primarily because:</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',6)"><span class="opt-letter">A</span> CMBs are issued by State Governments</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',6)"><span class="opt-letter">B</span> CMBs are issued at face value</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',6)"><span class="opt-letter">C</span> CMBs have maturity less than 91 days &amp; meet temporary cash flow mismatches</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',6)"><span class="opt-letter">D</span> CMBs are issued by RBI directly</div>
+    </div>
+    <div class="mcq-explain" id="exp6">✅ <b>Option C</b> — CMBs are issued by GoI (not state govts or RBI) to specifically meet temporary cash flow mismatches. They mature in &lt;91 days. Like T-Bills, they are issued at discount to par.</div>
+    <button class="show-ans-btn" onclick="toggleExp(6)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 7 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 7 · Application</div>
+    <div class="q-text">SEBI differs from SEC (USA) in that:</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',7)"><span class="opt-letter">A</span> SEBI regulates mutual funds; SEC does not</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',7)"><span class="opt-letter">B</span> SEC can impose unlimited fines, while SEBI has limited penalty powers</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',7)"><span class="opt-letter">C</span> SEBI was established much earlier than SEC</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',7)"><span class="opt-letter">D</span> SEC does not prohibit insider trading</div>
+    </div>
+    <div class="mcq-explain" id="exp7">✅ <b>Option B</b> — The key difference is penalty power. SEC can impose unlimited fines, making it a stronger deterrent. SEBI has limited fine amounts. Both otherwise perform similar regulatory functions.</div>
+    <button class="show-ans-btn" onclick="toggleExp(7)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 8 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 8 · Tricky</div>
+    <div class="q-text">Which of the following is correctly matched — Instrument : Issuer?</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',8)"><span class="opt-letter">A</span> CPs → Banks</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',8)"><span class="opt-letter">B</span> CDs → Corporates (NBFCs)</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',8)"><span class="opt-letter">C</span> T-Bills → Central Government</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',8)"><span class="opt-letter">D</span> CMBs → State Governments</div>
+    </div>
+    <div class="mcq-explain" id="exp8">✅ <b>Option C</b> — T-Bills are issued by the Central Government. CDs → Banks; CPs → Corporates/NBFCs; CMBs → Central Government (not state). This is a common trap question!</div>
+    <button class="show-ans-btn" onclick="toggleExp(8)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 9 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 9 · Conceptual</div>
+    <div class="q-text">The Buffett Indicator measures:</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',9)"><span class="opt-letter">A</span> P/E ratio of the Sensex</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',9)"><span class="opt-letter">B</span> Total market capitalization of listed shares divided by GDP</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',9)"><span class="opt-letter">C</span> Foreign institutional investor holdings as % of market cap</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',9)"><span class="opt-letter">D</span> Ratio of bond market size to equity market size</div>
+    </div>
+    <div class="mcq-explain" id="exp9">✅ <b>Option B</b> — The Buffett Indicator = Market Cap / GDP. It shows the extent to which the market values listed corporates relative to the economy. A high ratio may indicate overvaluation.</div>
+    <button class="show-ans-btn" onclick="toggleExp(9)">Show Explanation</button>
+  </div>
+
+  <!-- MCQ 10 -->
+  <div class="mcq-block">
+    <div class="q-num">Question 10 · Advanced</div>
+    <div class="q-text">According to Sensex historical data, equity investments held for 15 years or more:</div>
+    <div class="mcq-options">
+      <div class="mcq-opt" onclick="answer(this,'wrong',10)"><span class="opt-letter">A</span> Gave positive returns in about 90% of cases</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',10)"><span class="opt-letter">B</span> Gave positive returns in 27 out of 29 years</div>
+      <div class="mcq-opt" onclick="answer(this,'correct',10)"><span class="opt-letter">C</span> Gave positive returns in ALL holding periods (27/27)</div>
+      <div class="mcq-opt" onclick="answer(this,'wrong',10)"><span class="opt-letter">D</span> Gave returns equal to bank FD rates</div>
+    </div>
+    <div class="mcq-explain" id="exp10">✅ <b>Option C</b> — For 15-year (27/27) and 20-year (22/22) holding periods, Sensex ALWAYS gave positive returns. For 10 years it was 28/29 = almost always. Only 1-year returns were truly uncertain (25/38).</div>
+    <button class="show-ans-btn" onclick="toggleExp(10)">Show Explanation</button>
+  </div>
+
+  <!-- ===== RAPID REVISION ===== -->
+  <div id="rapid" class="sec-title">
+    <div class="icon" style="background:rgba(239,68,68,0.12);">⚡</div>
+    <h2>Rapid Revision Card</h2>
+    <span class="badge">Last-minute</span>
+  </div>
+
+  <div class="rapid">
+    <h3>⚡ 15 Points in 2 Minutes</h3>
+    <div class="rapid-list">
+      <div class="rapid-item"><span class="ri-num">1</span><span class="ri-text">Financial market = marketplace for financial assets (stocks, bonds, forex, commodities, derivatives)</span></div>
+      <div class="rapid-item"><span class="ri-num">2</span><span class="ri-text">8 major types: Stock, Bond, Commodity, Currency, <b>Money Market</b> (&lt;1yr), Derivatives, Futures, Insurance</span></div>
+      <div class="rapid-item"><span class="ri-num">3</span><span class="ri-text"><b>Biggest</b> global market = <b>Derivatives</b> (not equity/bonds as most assume)</span></div>
+      <div class="rapid-item"><span class="ri-num">4</span><span class="ri-text">4 Functions: Price Discovery, Liquidity, Lower Costs, Productive Savings Use</span></div>
+      <div class="rapid-item"><span class="ri-num">5</span><span class="ri-text">Baily &amp; Elliott's 3 functions: <b>Credit Provision, Liquidity Provision, Risk Management</b></span></div>
+      <div class="rapid-item"><span class="ri-num">6</span><span class="ri-text">Primary Stakeholders: <b>Shareholders, Lenders, Companies, MF Orgs</b> (NOT brokers/underwriters)</span></div>
+      <div class="rapid-item"><span class="ri-num">7</span><span class="ri-text">Underwriters profit from: Pre-IPO price vs Public offer price gap</span></div>
+      <div class="rapid-item"><span class="ri-num">8</span><span class="ri-text">India depositories: <b>NSDL</b> (National) and <b>CDSL</b> (Central) — accessed via DPs</span></div>
+      <div class="rapid-item"><span class="ri-num">9</span><span class="ri-text">CDs = <b>Banks</b>; CPs = <b>Corporates/NBFCs</b>. Both issued at discount, redeemed at par</span></div>
+      <div class="rapid-item"><span class="ri-num">10</span><span class="ri-text">T-Bills: 91d, 182d, 364d. CMBs: &lt;91 days (temporary GoI cash gaps)</span></div>
+      <div class="rapid-item"><span class="ri-num">11</span><span class="ri-text">Repo = Seller's view; Reverse Repo = Buyer's view. Only RBI-approved G-Sec instruments</span></div>
+      <div class="rapid-item"><span class="ri-num">12</span><span class="ri-text">SEBI (1992) vs SEC (USA): Both similar, but <b>SEC can impose unlimited fines</b> — stronger deterrent</span></div>
+      <div class="rapid-item"><span class="ri-num">13</span><span class="ri-text">RBI = inflation-first; Fed (USA) = growth &amp; employment-first</span></div>
+      <div class="rapid-item"><span class="ri-num">14</span><span class="ri-text"><b>Buffett Indicator</b> = Market Cap / GDP. India's ratio rose from ~61% (2011) to ~113% (2021)</span></div>
+      <div class="rapid-item"><span class="ri-num">15</span><span class="ri-text">Sensex: 1-yr positive = 25/38. <b>15-yr+ = ALWAYS positive (27/27 &amp; 22/22)</b></span></div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<div class="chapter-footer">
+  <div class="nav-btns">
+    <a href="index.html" class="nav-btn">← Back to Home</a>
+    <a href="index.html" class="nav-btn primary">Next Chapter →</a>
+  </div>
+  <p>CA Final Rank Hub · Paper 9: Financial Services &amp; Capital Markets · Chapter 1<br>Built from ICAI Study Material · For Merlin 🚀</p>
+</div>
+
+<script>
+function answer(el, type, qNum) {
+  const opts = el.closest('.mcq-options').querySelectorAll('.mcq-opt');
+  opts.forEach(o => o.style.pointerEvents = 'none');
+  el.classList.add(type);
+  // Auto-show explanation
+  const exp = document.getElementById('exp' + qNum);
+  if (exp) { exp.classList.add('show'); }
+}
+function toggleExp(n) {
+  const exp = document.getElementById('exp' + n);
+  if (exp) exp.classList.toggle('show');
+}
+</script>
+</body>
+</html>
